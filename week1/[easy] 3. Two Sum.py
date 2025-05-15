@@ -34,9 +34,10 @@ Link: https://neetcode.io/problems/two-integer-sum
 # Space complexity: O(1)
 
 from typing import List
+# you can just use "list", then you don't need to import library anymore.
 
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def two_sum(self, nums: List[int], target: int) -> List[int]:
         for i in range(len(nums)):
             for j in range(len(nums)):
                 if i != j and nums[i] + nums[j] == target:
@@ -52,7 +53,7 @@ class Solution:
 # Space complexity: O(n)
 
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def two_sum(self, nums: List[int], target: int) -> List[int]:
         hash_map = {}  # Stores num -> index
         for i in range(len(nums)):
             complement = target - nums[i]
