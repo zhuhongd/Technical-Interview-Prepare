@@ -3,24 +3,49 @@ A structured project for Summer 2025 to prepare for technical interviews, includ
 
 # Week 1 -> Week 2:
 
-Week 1 covers `HashSet`, `HashMap`, and frequency counting — all of which are essential for implementing Two Pointer and Sliding Window problems in Week 2.
+## 🔄 How Week 1 Helps with Week 2
 
-### Key Contributions from Week 1
+In Week 1, you practiced using `HashSet`, `HashMap`, and counting frequencies. These skills are very useful for solving Two Pointer and Sliding Window problems in Week 2. Here's how they connect:
 
-- **HashSet for Duplicate Detection**
-  - Used in sliding window problems like **Longest Substring Without Repeating Characters**
-  - Helps track which characters are currently in the window
-  - Supports constant-time checks for whether to shrink the window
+---
 
-- **HashMap for Frequency Counting**
-  - Critical in problems like **Minimum Window Substring**
-  - Tracks how many times a character is required vs. how many times it appears in the current window
-  - Week 1's problem **Top K Frequent Elements** teaches you how to build and update frequency maps efficiently
+### 1. HashSet → Used in Two Pointer problems
 
-- **Big O and Hash-Based Thinking**
-  - Week 1 builds intuition for replacing O(n²) brute-force with O(n) hash-based approaches
-  - These optimizations are at the core of sliding window and two-pointer patterns
+- In **"Longest Substring Without Repeating Characters"**, you need to check if a character is already in your current substring.
+- You can use a `HashSet` to store characters in the current window.
+- If the character is already in the set, move the left pointer forward and remove characters until the duplicate is gone.
+- This only works well if you're comfortable with using `set.add()`, `set.remove()`, and checking membership with `in`, which you practiced in Week 1.
 
-### Summary
+---
 
-Without Week 1’s practice in using hash structures to manage state, it would be difficult to efficiently implement pointer movement, window adjustments, and dynamic condition checks in Week 2. The data structures and logic learned in Week 1 are not just helpful — they are essential building blocks for mastering Week 2 techniques.
+### ✅ 2. HashMap → Used in Sliding Window with character counts
+
+- In **"Minimum Window Substring"**, you need to find a substring that contains all the characters from another string.
+- You build a `HashMap` with the frequency of each required character.
+- Then, as you slide the window, you update another `HashMap` for the current window and compare the counts.
+- In Week 1, the **"Top K Frequent Elements"** problem helped you get used to counting frequencies and updating maps as you go.
+
+---
+
+### ✅ 3. Time complexity and avoiding brute force
+
+- In Week 1, you learned to use `HashMap` and `HashSet` to avoid unnecessary loops.
+- For example, instead of checking every possible substring, you learned to process the input once using a set or map.
+- This idea is exactly what Sliding Window does — you move two pointers instead of looping over everything.
+
+---
+
+### Example Summary:
+
+| Concept from Week 1 | How it's used in Week 2                          | Example Problem                            |
+|---------------------|--------------------------------------------------|--------------------------------------------|
+| `HashSet`           | Track seen characters to avoid duplicates        | Longest Substring Without Repeating Characters |
+| `HashMap`           | Count required characters and match them         | Minimum Window Substring                   |
+| Frequency Counting  | Track how many times each element appears        | Top K Frequent Elements → used in sliding window too |
+
+---
+
+### TLDR:
+
+The set and map problems in Week 1 are not just warm-ups — they give you the tools you need to write fast and clean solutions using two pointers and sliding windows in Week 2.
+
