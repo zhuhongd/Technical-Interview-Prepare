@@ -3,8 +3,24 @@ A structured project for Summer 2025 to prepare for technical interviews, includ
 
 # Week 1 -> Week 2:
 
-In Week 1, learning how to use HashMap and HashSet lays the groundwork for implementing both two-pointer and sliding window techniques in Week 2. For example, in the problem "Longest Substring Without Repeating Characters", a HashSet is used to track characters in the current window. As you move the right pointer to expand the window, you check if the character already exists in the set. If it does, the left pointer is moved forward while removing characters from the set until the window becomes valid again. Without mastering HashSet usage in Week 1, this kind of logic would be hard to implement efficiently.
+Week 1 covers `HashSet`, `HashMap`, and frequency counting — all of which are essential for implementing Two Pointer and Sliding Window problems in Week 2.
 
-Similarly, in problems like "Minimum Window Substring", HashMap is used to store the frequency of required characters. As you slide the window using two pointers, you compare the current window’s frequency map to the target map. This relies on the ability to count characters accurately and update counts dynamically — a skill practiced through Week 1’s hashmap-heavy problems like "Top K Frequent Elements".
+### Key Contributions from Week 1
 
-In short, Week 1 teaches you how to track occurrences and manage element presence quickly using hashing, which directly powers the logic behind when to expand or shrink the window in Week 2’s problems.
+- **HashSet for Duplicate Detection**
+  - Used in sliding window problems like **Longest Substring Without Repeating Characters**
+  - Helps track which characters are currently in the window
+  - Supports constant-time checks for whether to shrink the window
+
+- **HashMap for Frequency Counting**
+  - Critical in problems like **Minimum Window Substring**
+  - Tracks how many times a character is required vs. how many times it appears in the current window
+  - Week 1's problem **Top K Frequent Elements** teaches you how to build and update frequency maps efficiently
+
+- **Big O and Hash-Based Thinking**
+  - Week 1 builds intuition for replacing O(n²) brute-force with O(n) hash-based approaches
+  - These optimizations are at the core of sliding window and two-pointer patterns
+
+### Summary
+
+Without Week 1’s practice in using hash structures to manage state, it would be difficult to efficiently implement pointer movement, window adjustments, and dynamic condition checks in Week 2. The data structures and logic learned in Week 1 are not just helpful — they are essential building blocks for mastering Week 2 techniques.
