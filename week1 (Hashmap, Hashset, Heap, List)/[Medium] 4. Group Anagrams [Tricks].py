@@ -1,5 +1,5 @@
 """
-🧩 Problem: Group Anagrams
+Problem: Group Anagrams
 
 Given an array of strings `strs`, group all anagrams together into sublists. 
 You may return the output in any order.
@@ -11,7 +11,7 @@ all original letters exactly once.
 
 ---
 
-📘 Examples
+Examples
 
 Input: strs = ["act", "pots", "tops", "cat", "stop", "hat"]
 Output: [["act", "cat"], ["pots", "tops", "stop"], ["hat"]]
