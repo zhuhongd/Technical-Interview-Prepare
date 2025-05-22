@@ -3,8 +3,6 @@ A structured project for Summer 2025 to prepare for technical interviews, includ
 
 # Week 1 -> Week 2:
 
-## 🔄 How Week 1 Helps with Week 2
-
 In Week 1, you practiced using `HashSet`, `HashMap`, and counting frequencies. These skills are very useful for solving Two Pointer and Sliding Window problems in Week 2. Here's how they connect:
 
 ---
@@ -18,7 +16,7 @@ In Week 1, you practiced using `HashSet`, `HashMap`, and counting frequencies. T
 
 ---
 
-### ✅ 2. HashMap → Used in Sliding Window with character counts
+### 2. HashMap → Used in Sliding Window with character counts
 
 - In **"Minimum Window Substring"**, you need to find a substring that contains all the characters from another string.
 - You build a `HashMap` with the frequency of each required character.
@@ -27,7 +25,7 @@ In Week 1, you practiced using `HashSet`, `HashMap`, and counting frequencies. T
 
 ---
 
-### ✅ 3. Time complexity and avoiding brute force
+### 3. Time complexity and avoiding brute force
 
 - In Week 1, you learned to use `HashMap` and `HashSet` to avoid unnecessary loops.
 - For example, instead of checking every possible substring, you learned to process the input once using a set or map.
