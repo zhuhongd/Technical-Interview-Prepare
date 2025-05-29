@@ -36,7 +36,7 @@ while L < R:
         R -= 1
     else:
         L += 1
-
+```
 ---
 
 ## 3. Practice Problem Line-Up & Why Each Matters
