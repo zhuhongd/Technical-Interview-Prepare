@@ -1,62 +1,82 @@
-# Week 1 – Hash Maps & Hash Sets
+# Week 1 — Hash Maps & Hash Sets
 
-> “If you get stuck, throw a hash map at it.”  
+> “If you’re stuck, try a hash table.”  
 > — common interview meme (because it often works)
+
+---
 
 ## 1. Why start with hashes?
 
-* **Speed** Average‐case lookup / insert / delete is **O(1)**, thanks to direct indexing via a hash function. :contentReference[oaicite:0]{index=0}  
-* **Coverage** The *Arrays & Hashing* category alone holds **8 of 75** problems in the Blind 75 list (~11 %). :contentReference[oaicite:1]{index=1}  
-* **Foundation for later weeks**  
-  * **Two-Pointers** (Week 2) – when an array is sorted, `Two Sum` can be refactored from a hash-map solution to two pointers.  
-  * **Sliding Window** (Week 3) – a set tracks “currently-seen” elements to maintain a window with no repeats.  
-  * **Prefix Sum + HashMap** (Week 4) – uses a map of *prefix→index* for constant-time range queries.
+- **Speed:**  
+  Hash tables offer average-case O(1) lookup, insert, and delete. That means you can solve many brute-force problems in a single pass instead of nested loops.  
+  [What is a Hash Table? (Interview Cake)](https://www.interviewcake.com/concept/python/hash-table)
+
+- **Coverage:**  
+  Out of Blind 75’s 75 most common interview questions, 8 are directly in the "Arrays & Hashing" category, which is over 10%.  
+  [Blind 75: Arrays & Hashing](https://blind75.vercel.app/)  
+  [NeetCode 150 - Arrays & Hashing](https://neetcode.io/practice)
+
+- **Foundation for future weeks:**  
+  Mastery here makes it easier to:
+  - Use two-pointers in sorted arrays (Week 2)
+  - Build sliding window techniques (Week 2)
+  - Tackle prefix sum problems (this Week)  
+  Hash maps and sets are used in most optimized solutions later.
 
 ---
 
-## 2. Core properties
+## 2. Core properties & trade-offs
 
-| Aspect | Hash Map (`dict`) | Hash Set (`set`) |
-|--------|------------------|------------------|
-| Stores | key → value pairs | unique keys only |
-| Avg. ops | O(1) | O(1) |
-| Worst case | O(n) if many collisions | same |
-| Strengths | direct lookup, counting, memo-cache | deduping, membership tests |
-| Limitations | higher memory; unordered | unordered; no values |
+| Aspect        | Hash Map (`dict`)                 | Hash Set (`set`)            |
+|---------------|-----------------------------------|-----------------------------|
+| Stores        | key → value pairs                 | unique keys only            |
+| Avg. ops      | **O(1)**                          | **O(1)**                    |
+| Worst-case    | O(n) if heavy collisions occur    | O(n) if heavy collisions    |
+| Strengths     | fast lookup, frequency counts, memoization | de-duping, membership tests  |
+| Limitations   | higher memory, unordered          | unordered, no associated value |
+
+*More: [Hash Tables in Python (Real Python)](https://realpython.com/python-hash-table/)*
 
 ---
 
-## 3. Practice problems & **why** they were picked
+## 3. Practice line-up & why these questions matter
 
-| # | Problem (LeetCode ID) | Concept it drills | Why it matters | Citations |
-|---|-----------------------|-------------------|----------------|-----------|
-| 1 | **Contains Duplicate** (217) | set membership | Simplest “do I see this again?” check—introduces `set()` syntax and O(1) lookups | :contentReference[oaicite:2]{index=2} |
-| 2 | **Two Sum** (1) | map complement search | Classic interview opener; shows how a hash map drops brute-force from O(n²) → O(n) | :contentReference[oaicite:3]{index=3} |
-| 3 | **Group Anagrams** (49) | map of canonical key → list | Demonstrates building composite keys and aggregation with a map | :contentReference[oaicite:4]{index=4} |
-| 4 | **Subarray Sum = K** (560) | prefix-sum + map | Bridges to Week 4; illustrates storing prefix frequencies to count ranges in O(n) | :contentReference[oaicite:5]{index=5} |
-
-*(Solve these in `week1_practice.ipynb`.  Each file has a starter template and walkthrough.)*
+| # | Problem (LeetCode)                  | Concept drilled         | Why interviewers love it                                                |
+|---|-------------------------------------|------------------------|--------------------------------------------------------------------------|
+| 1 | [Contains Duplicate (217)](https://leetcode.com/problems/contains-duplicate/) | set membership         | Teaches O(1) lookups and fast duplicate check, core to many interview warmups. |
+| 2 | [Two Sum (1)](https://leetcode.com/problems/two-sum/)                       | map complement search  | Probably the most famous hash map question—used as an opener at FAANG interviews. |
+| 3 | [Group Anagrams (49)](https://leetcode.com/problems/group-anagrams/)         | mapping & aggregation  | Shows real-world use of composite keys and collecting results by bucket.  |
+| 4 | [Subarray Sum Equals K (560)](https://leetcode.com/problems/subarray-sum-equals-k/) | prefix sum + hash map  | Key bridge to advanced topics, combines cumulative sum with fast lookup.  |
 
 ---
 
 ## 4. Learning outcomes
 
-By Friday you should be able to:
+By the end of Week 1, you should be able to:
 
-1. **Explain** how a hash table achieves amortised O(1) and when it degrades to O(n).  
-2. **Choose** between `dict` and `set` instantly.  
-3. **Refactor** a double-loop search to a one-pass map solution (e.g., `Two Sum`).  
-4. **Write** frequency-count, deduping, and prefix-sum patterns from memory.  
-
----
-
-## 5. Skip-test
-
-Open **`week1_skip_test.ipynb`**.  
-If you can solve *Contains Duplicate II* (LC 219) in < 20 minutes with an optimal O(n) / O(n) solution **and** justify the complexity, you may jump to Week 2.
+1. **Explain** how a hash table achieves average O(1) performance and what causes slowdowns.
+2. **Decide instantly** between using a dict or set for a new problem.
+3. **Refactor** a brute-force double-loop into a hash-based solution.
+4. **Recognize** when a problem needs frequency counting, fast duplicate check, or key→index mapping.
 
 ---
 
-Next up → **Week 2: Two Pointers.**  You’ll see how sorting plus dual indices can replace a hash map for range searches, and how that leads naturally into the Sliding Window pattern.
+## 5. Skip test
 
-Happy hashing! 🗝️
+Open `week1_skip_test.ipynb`.  
+If you can solve [Contains Duplicate II (219)](https://leetcode.com/problems/contains-duplicate-ii/) in under 20 minutes with O(n) time and space, you can move to Week 2 early.
+
+---
+
+## 6. Further reading
+
+- [NeetCode “Arrays & Hashing” playlist (YouTube)](https://www.youtube.com/playlist?list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATC)
+- [Tech Interview Handbook: Hash Table Patterns](https://www.techinterviewhandbook.org/grind75)
+- [Python Sets and Dictionaries (Official Docs)](https://docs.python.org/3/tutorial/datastructures.html#dictionaries)
+
+---
+
+**Next up:**  
+Week 2 — Two-Pointers. You’ll see how to solve pair problems and range scans more efficiently, sometimes without any extra space.
+
+Happy hashing!
