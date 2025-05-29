@@ -5,48 +5,57 @@
 
 ---
 
-## 1. Why start with hashes?
+## 1. Why start with Hash Maps and Hash Sets?
 
-- **Speed:**  
-  Hash tables offer average-case O(1) lookup, insert, and delete. That means you can solve many brute-force problems in a single pass instead of nested loops.  
-  [What is a Hash Table? (Interview Cake)](https://www.interviewcake.com/concept/python/hash-table)
+Hash maps (`dict`) and hash sets (`set`) are **core data structures** for interview prep. They appear in countless problems involving:
 
-- **Coverage:**  
-  Out of Blind 75’s 75 most common interview questions, 8 are directly in the "Arrays & Hashing" category, which is over 10%.  
-  [Blind 75: Arrays & Hashing](https://blind75.vercel.app/)  
-  [NeetCode 150 - Arrays & Hashing](https://neetcode.io/practice)
+- **Uniqueness**: “Has this been seen before?”
+- **Counting**: “How many times does X appear?”
+- **Frequency/grouping**: “Group all anagrams,” “Track frequency,” etc.
+- **Membership**: “Is X present?”
 
-- **Foundation for future weeks:**  
-  Mastery here makes it easier to:
-  - Use two-pointers in sorted arrays (Week 2)
-  - Build sliding window techniques (Week 2)
-  - Tackle prefix sum problems (this Week)  
-  Hash maps and sets are used in most optimized solutions later.
+When you see words like *unique*, *duplicate*, *count*, *frequency*, or *seen*, a hash map or set is often the optimal solution.
+
+**If you only had one “trick” for interviews, knowing how and when to use hashes is it!**
 
 ---
 
-## 2. Core properties & trade-offs
+## 2. Why Hashes over Arrays or TreeMaps?
 
-| Aspect        | Hash Map (`dict`)                 | Hash Set (`set`)            |
-|---------------|-----------------------------------|-----------------------------|
-| Stores        | key → value pairs                 | unique keys only            |
-| Avg. ops      | **O(1)**                          | **O(1)**                    |
-| Worst-case    | O(n) if heavy collisions occur    | O(n) if heavy collisions    |
-| Strengths     | fast lookup, frequency counts, memoization | de-duping, membership tests  |
-| Limitations   | higher memory, unordered          | unordered, no associated value |
+| Operation        | TreeMap (BST) | HashMap      | Array       |
+|------------------|---------------|--------------|-------------|
+| Insert           | O(log n)      | O(1)\*       | O(n)        |
+| Remove           | O(log n)      | O(1)\*       | O(n)        |
+| Search           | O(log n)      | O(1)\*       | O(n)        |
+| Ordered Traversal| O(n)          | ❌ Unordered | ❌ Unordered |
 
-*More: [Hash Tables in Python (Real Python)](https://realpython.com/python-hash-table/)*
+\*Hash maps are **average-case O(1)**, but can degrade to O(n) with poor hash functions or heavy collisions. In interviews, assume average-case.
 
+- **HashMap**: Fastest for lookup, insert, remove (on average).  
+- **TreeMap**: Maintains order, but is slower for most tasks.  
+- **Array**: Fine for static, sorted data, but slow for dynamic lookup/insert.
+
+**Key takeaway:** For problems where order doesn’t matter but speed does, hashes are almost always best.
+
+---
+
+## 3. Key Concepts
+
+- **Hash Map**: Stores key-value pairs (`{name: count}`)
+- **Hash Set**: Stores unique keys only (`{name, name, ...}`)
+- **No duplicates** (for keys)
+- **O(1)** average-case for insert, lookup, and delete
 ---
 
 ## 3. Practice line-up & why these questions matter
 
-| # | Problem (LeetCode)                  | Concept drilled         | Why interviewers love it                                                |
-|---|-------------------------------------|------------------------|--------------------------------------------------------------------------|
-| 1 | [Contains Duplicate (217)](https://leetcode.com/problems/contains-duplicate/) | set membership         | Teaches O(1) lookups and fast duplicate check, core to many interview warmups. |
-| 2 | [Two Sum (1)](https://leetcode.com/problems/two-sum/)                       | map complement search  | Probably the most famous hash map question—used as an opener at FAANG interviews. |
-| 3 | [Group Anagrams (49)](https://leetcode.com/problems/group-anagrams/)         | mapping & aggregation  | Shows real-world use of composite keys and collecting results by bucket.  |
-| 4 | [Subarray Sum Equals K (560)](https://leetcode.com/problems/subarray-sum-equals-k/) | prefix sum + hash map  | Key bridge to advanced topics, combines cumulative sum with fast lookup.  |
+| # | Problem                                                                                | Concept Drilled            | Why It's Important                                                                      |
+| - | -------------------------------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------------------------------- |
+| 1 | [Contains Duplicate (LC 217)](https://leetcode.com/problems/contains-duplicate/)       | Set membership             | The fastest way to check for duplicates using O(1) lookups.                             |
+| 2 | [Two Sum (LC 1)](https://leetcode.com/problems/two-sum/)                               | Hash map complement search | Turns O(n²) brute-force into O(n) elegance; the most common interview question.         |
+| 3 | [Group Anagrams (LC 49)](https://leetcode.com/problems/group-anagrams/)                | Mapping and grouping       | Efficiently groups items by key, teaches aggregation with hash maps.                    |
+| 4 | [Subarray Sum Equals K (LC 560)](https://leetcode.com/problems/subarray-sum-equals-k/) | Prefix sum + hash map      | Combines prefix logic and fast lookups; leads to more advanced patterns in later weeks. |
+
 
 ---
 
