@@ -79,13 +79,12 @@ If you can solve [Contains Duplicate II (219)](https://leetcode.com/problems/con
 
 ## 6. Further reading
 
-- [NeetCode “Arrays & Hashing” playlist (YouTube)](https://www.youtube.com/playlist?list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATC)
 - [Tech Interview Handbook: Hash Table Patterns](https://www.techinterviewhandbook.org/grind75)
 - [Python Sets and Dictionaries (Official Docs)](https://docs.python.org/3/tutorial/datastructures.html#dictionaries)
 
 ---
 
 **Next up:**  
-Week 2 — Two-Pointers. You’ll see how to solve pair problems and range scans more efficiently, sometimes without any extra space.
+Week 2 — Two-Pointers and Slicing Windows. You’ll see how to solve pair problems and range scans more efficiently, sometimes without any extra space.
 
 Happy hashing!
