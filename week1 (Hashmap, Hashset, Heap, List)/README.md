@@ -72,9 +72,8 @@ By the end of Week 1, you should be able to:
 
 ## 5. Skip test
 
-Open `week1_skip_test.ipynb`.  
-If you can solve [Contains Duplicate II (219)](https://leetcode.com/problems/contains-duplicate-ii/) in under 20 minutes with O(n) time and space, you can move to Week 2 early.
-
+Solve Top K Frequent Elements (LC 347) with the optimal O(n log k) (map + heap) or O(n) (bucket sort) approach in ≤ 25 min.
+https://leetcode.com/problems/top-k-frequent-elements/
 ---
 
 ## 6. Further reading
