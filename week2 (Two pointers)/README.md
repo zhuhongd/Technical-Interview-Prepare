@@ -72,7 +72,6 @@ using the two-pointer approach in ≤ 20 minutes and pass the tests, you’re re
 
 ## 6. Further Reading & Videos
 
-- [NeetCode — Two Pointers Playlist](https://www.youtube.com/playlist?list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATC)
 - [LeetCode Explore Card: Two Pointers](https://leetcode.com/explore/learn/card/array-and-string/203/introduction-to-two-pointer-technique/)
 - [Blind 75 — Two Pointer Questions](https://blind75.vercel.app/)
 
