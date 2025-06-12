@@ -45,7 +45,6 @@ class Solution:
             if avg >= threshold:
                 count += 1
         return count
-
 # -----------------------------
 # Optimized Sliding Window Approach:
 # -----------------------------
