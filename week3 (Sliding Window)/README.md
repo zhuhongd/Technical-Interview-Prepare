@@ -7,7 +7,7 @@
 
 ## 1. Why Sliding Window?
 
-Sliding Window is an essential pattern for solving problems involving **contiguous sequences** like subarrays or substrings.
+Sliding Window is an essential pattern for solving problems involving **contiguous sequences** like subarrays or substrings. We need to have the basic knowledge of two pointers, so you can approach sliding windows, thats why i put it a week after two pointers
 
 Instead of brute-forcing every possible subarray (O(n²)), sliding window techniques reduce complexity to O(n) by expanding and shrinking a window dynamically.
 
