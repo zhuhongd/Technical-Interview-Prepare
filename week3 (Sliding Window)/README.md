@@ -72,7 +72,7 @@ for R in range(len(nums)):
 
 Solve **[Minimum Window Substring (LC 76)](https://leetcode.com/problems/minimum-window-substring/)** in ≤ 30 minutes using the sliding-window + hash-map approach.
 
-Pass it? 🎉 — Proceed to **Week 4: Prefix Sum & Greedy**.
+Pass it? 🎉 — Proceed to **Week 4: Binary Seach and Linked List**.
 
 ---
 
