@@ -41,7 +41,7 @@ for R in range(len(nums)):
     if R - L + 1 > k:
         window_sum -= nums[L]
         L += 1
-
+```
 
 4. Practice Problem Line-Up & Why Each Matters
 | # | Problem                                                                                                                                                            | File                                | Window Type   | Why it matters                                        |
