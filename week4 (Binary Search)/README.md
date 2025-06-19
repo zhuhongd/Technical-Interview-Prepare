@@ -89,7 +89,7 @@ you’re ready to move on to **Week 5**!
 
 ## ➡️ Next Up
 
-### **Week 5 — Stacks, Queues, and Monotonic Structures**
+### **Week 5 — maybe Stacks, Queues, and Monotonic Structures or linked list?**
 
 You’ll learn how to approach problems like:
 
