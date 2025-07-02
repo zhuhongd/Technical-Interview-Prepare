@@ -113,7 +113,7 @@ Solve Reverse Linked List II (LC 92) within 30 minutes. It tests deep pointer ma
 ## 7. Further Reading
 
 - [Leetcode Explore: Linked List](https://leetcode.com/explore/learn/card/linked-list/)
-- [Fast and Slow Pointers Explained](https://medium.com/@smathur0901/slow-and-fast-pointer-pattern-floyds-cycle-detection-algorithm-6995df2753b1)
+- [Fast and Slow Pointers Explained](https://medium.com/@arifimran5/fast-and-slow-pointer-pattern-in-linked-list-43647869ac99)
 - [Python Classes and OOP (Official Docs)](https://docs.python.org/3/tutorial/classes.html)
 - [Singly vs Doubly Linked Lists: GeeksforGeeks](https://www.geeksforgeeks.org/doubly-linked-list/)
 
