@@ -1,3 +1,7 @@
+# Before you approach this question, I've marked it as "Optional" because I personally feel it's too difficult. 
+# If you're a beginner to intermediate level, feel free to skip this question for now and revisit it in the future if you'd like. 
+# However, if you're more advanced, feel free to give it a try. This question is by far the hardest in the last 4 weeks, in my opinion.
+
 """
 Problem: Median of Two Sorted Arrays
 
