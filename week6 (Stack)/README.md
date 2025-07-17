@@ -73,7 +73,7 @@ using a **monotonic stack** approach in under **30 minutes**, you’re ready to 
 ---
 
 **Next up:**  
-**Week 7 — Intervals, Greedy Logic & Sorting Strategies.**  
-You'll learn to merge ranges, apply optimal selection, and use sorting with intent.
+**Week 7 — Trees**  
+You'll learn BFS, DFS
 
 **Happy stacking! 🥞**

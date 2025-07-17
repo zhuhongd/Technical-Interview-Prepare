@@ -120,7 +120,7 @@ Solve Reverse Linked List II (LC 92) within 30 minutes. It tests deep pointer ma
 ---
 
 **Next up:**\
-Week 6 — Recursion and Stack Essentials. You’ll refine your understanding of recursion and how it connects deeply to linked lists and other recursive data structures.
+Week 6 — Stack Essentials. 
 
 Happy pointer chasing!
 
