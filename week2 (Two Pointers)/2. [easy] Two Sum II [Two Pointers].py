@@ -60,6 +60,4 @@ Why This Problem Matters:
 -------------------------
 This is a classic use case for the two-pointer technique on a sorted array.
 It reinforces the pattern of narrowing down the range from both ends to find a match.
-
-This implementation is part of the EECS4070 Directed Study project by Hongda Zhu.
 """
