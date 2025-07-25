@@ -23,23 +23,24 @@ It doubles as my **EECS4070 directed studies project**, where I measure how a st
 
 ---
 
-## 🗂 Repo Structure
-```
-├── week1 (Hashmap, Hashset, Heap, List)
-├── week2 (Two Pointers)
-├── week3 (Sliding Window)
-├── week4 (Binary Search)
-├── week5 (Linked List)
-├── week6 (Stack / Monotonic Structures)
-├── week7 (Trees & BST fundamentals)
-│   └── ...
-└── README.md                     # This file
-```
-
-- Each week has:
-  - `README.md` (concepts, why-it-matters, practice table, skip test)
-  - Numbered `.py` solutions with **brute-force → optimized** paths and comments
-  - Sometimes a Jupyter notebook for deeper dives
+ ## 🗂 Repo Structure
+ ```
+ ├── week1 (Hashmap, Hashset, Heap, List)
+ ├── week2 (Two Pointers)
+ ├── week3 (Sliding Window)
+ ├── week4 (Binary Search)
+ ├── week5 (Linked List)
+ ├── week6 (Stack / Monotonic Structures)
+ ├── week7 (Trees & BST fundamentals)
+ │   └── ... (additional contents in week7)
+ ├── things_you_need_to_know.ipynb   # Core “must know” templates/notes
+ └── README.md                       # This file
+ ```
+ 
+ **Contents of each week folder:**
+ - `README.md`: Concepts, why it matters, practice table, and skip test.
+ - Numbered Python files (`.py`) containing solutions with both brute-force and optimized approaches, and comments.
+ - Sometimes a Jupyter notebook for deeper dives (if applicable).
 
 ---
 
@@ -48,10 +49,9 @@ It doubles as my **EECS4070 directed studies project**, where I measure how a st
 ### If you’re here to **learn**:
 1. Start at **Week 1** and read the week’s README.  
 2. Solve problems in order. Force yourself to write **both brute-force and optimal** solutions.  
-3. Use `things_you_need_to_know.ipynb` for core templates (BST ops, binary search predicate template, etc.).  
-4. 
+3. Watch the youtube video for explaination, but do the questions in order.
 
-### If you’re here for the **research angle**:
+### If you’re here to **revise your knowledge**:
 - Pass the **Skip Test** to move to the next week.
 
 ---
@@ -68,14 +68,6 @@ It doubles as my **EECS4070 directed studies project**, where I measure how a st
 | 6    | Stacks / Monotonic Structures          | LC 84 Largest Rectangle in Histogram        |
 | 7    | Trees / BST (traversals, ops)          | LC 230 Kth Smallest in BST                  |
 | …    | (System/OOP mini-design add-ons)       | “Design Twitter”, Robot nav classes, etc.   |
-
----
-
-## 📊 Data & Analysis (EECS4070)
-
-- **Metrics logged:** time, attempts, confidence changes, pattern recognition notes.  
-- **Tools:** simple CSV/Google Form; analysis with pandas later.  
-- **Final deliverable:** report correlating pattern exposure with performance & confidence.
 
 ---
 
