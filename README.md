@@ -1,49 +1,117 @@
-# Technical-Interview-Prepare
-A structured project for Summer 2025 to prepare for technical interviews, including completing LeetCode question sets and documenting problem-solving approaches as part of EECS4070.
+# Technical-Interview-Prepare (EECS4070 Directed Study)
 
-# Week 1 -> Week 2:
-
-In Week 1, you practiced using `HashSet`, `HashMap`, and counting frequencies. These skills are very useful for solving Two Pointer and Sliding Window problems in Week 2. Here's how they connect:
+> **Pattern-based interview prep + mini research project**  
+> Summer/Fall 2025 · York University
 
 ---
 
-### 1. HashSet → Used in Two Pointer problems
+## 🚀 What is this?
 
-- In **"Longest Substring Without Repeating Characters"**, you need to check if a character is already in your current substring.
-- You can use a `HashSet` to store characters in the current window.
-- If the character is already in the set, move the left pointer forward and remove characters until the duplicate is gone.
-- This only works well if you're comfortable with using `set.add()`, `set.remove()`, and checking membership with `in`, which you practiced in Week 1.
-
----
-
-### 2. HashMap → Used in Sliding Window with character counts
-
-- In **"Minimum Window Substring"**, you need to find a substring that contains all the characters from another string.
-- You build a `HashMap` with the frequency of each required character.
-- Then, as you slide the window, you update another `HashMap` for the current window and compare the counts.
-- In Week 1, the **"Top K Frequent Elements"** problem helped you get used to counting frequencies and updating maps as you go.
+This repo is a **12‑week, pattern-first roadmap** for technical interview prep (LeetCode-style DSA + light design/OOP).  
+It doubles as my **EECS4070 directed studies project**, where I measure how a structured pattern curriculum affects:
+- Problem-solving speed
+- Confidence
+- Ability to transfer patterns to new problems
 
 ---
 
-### 3. Time complexity and avoiding brute force
+## 🎯 Project Goals
 
-- In Week 1, you learned to use `HashMap` and `HashSet` to avoid unnecessary loops.
-- For example, instead of checking every possible substring, you learned to process the input once using a set or map.
-- This idea is exactly what Sliding Window does — you move two pointers instead of looping over everything.
-
----
-
-### Example Summary:
-
-| Concept from Week 1 | How it's used in Week 2                          | Example Problem                            |
-|---------------------|--------------------------------------------------|--------------------------------------------|
-| `HashSet`           | Track seen characters to avoid duplicates        | Longest Substring Without Repeating Characters |
-| `HashMap`           | Count required characters and match them         | Minimum Window Substring                   |
-| Frequency Counting  | Track how many times each element appears        | Top K Frequent Elements → used in sliding window too |
+1. **Learn by patterns, not problems**: Hashes → Two Pointers → Sliding Window → Binary Search → Stacks/Queues → Trees/BSTs → …  
+2. **Document everything** clearly (code, complexity, common mistakes).  
+3. **Collect data** (time, attempts, reflections) to analyze learning impact.
 
 ---
 
-### TLDR:
+## 🗂 Repo Structure
 
-The set and map problems in Week 1 are not just warm-ups — they give you the tools you need to write fast and clean solutions using two pointers and sliding windows in Week 2.
+├── week1  (Hashmap, Hashset, Heap, List)
+├── week2  (Two Pointers)
+├── week3  (Sliding Window)
+├── week4  (Binary Search)
+├── week5  (Linked List)
+├── week6  (Stack / Monotonic Structures)
+├── week7  (Trees & BST fundamentals)
+│   └── ...
+├── things_you_need_to_know.ipynb   # Core “must know” templates/notes
+└── README.md                       # This file
 
+
+- Each week has:
+  - `README.md` (concepts, why-it-matters, practice table, skip test)
+  - Numbered `.py` solutions with **brute-force → optimized** paths and comments
+  - Sometimes a Jupyter notebook for deeper dives
+
+---
+
+## 🧭 How to Use This Repo
+
+### If you’re here to **learn**:
+1. Start at **Week 1** and read the week’s README.  
+2. Solve problems in order. Force yourself to write **both brute-force and optimal** solutions.  
+3. Use `things_you_need_to_know.ipynb` for core templates (BST ops, binary search predicate template, etc.).  
+4. 
+
+### If you’re here for the **research angle**:
+- Pass the **Skip Test** to move to the next week.
+
+---
+
+## 🧱 Pattern Blocks (Quick Map)
+
+| Week | Pattern Block                         | Example Skip Test                           |
+|------|----------------------------------------|---------------------------------------------|
+| 1    | Hash Maps / Sets / Counting            | LC 347 Top K Frequent Elements              |
+| 2    | Two Pointers                           | LC 11 Container With Most Water             |
+| 3    | Sliding Window (fixed/variable/deque)  | LC 76 Minimum Window Substring              |
+| 4    | Binary Search (index & answer space)   | LC 33 Search in Rotated Sorted Array        |
+| 5    | Linked List (ops + two-pointer tricks) | LC 142 Linked List Cycle II                 |
+| 6    | Stacks / Monotonic Structures          | LC 84 Largest Rectangle in Histogram        |
+| 7    | Trees / BST (traversals, ops)          | LC 230 Kth Smallest in BST                  |
+| …    | (System/OOP mini-design add-ons)       | “Design Twitter”, Robot nav classes, etc.   |
+
+---
+
+## 📊 Data & Analysis (EECS4070)
+
+- **Metrics logged:** time, attempts, confidence changes, pattern recognition notes.  
+- **Tools:** simple CSV/Google Form; analysis with pandas later.  
+- **Final deliverable:** report correlating pattern exposure with performance & confidence.
+
+---
+
+## ✅ Conventions
+
+- File names: `N. [difficulty] Problem Name [Pattern].py`
+- Each file includes:
+  - Problem statement (short)
+  - Brute-force idea (if relevant)
+  - Optimized approach + complexity
+  - “Knowledge” tags (e.g., `[Knowledge 1.]`)
+
+---
+
+## 🔧 Future Improvements / TODO
+
+- Add unit tests for helper templates  
+- Visual diagrams for tree ops / sliding windows  
+
+---
+
+## 📚 References
+
+- NeetCode Roadmap / Blind 75 / Tech Interview Handbook  
+- Official Python docs (dict, set, collections)  
+- Course: EECS4070 Directed Study (York University)
+
+---
+
+## 📩 Contact
+
+- **Author:** Hongda Zhu  
+- **Questions / suggestions:** open an issue or PR!
+
+---
+
+> _“Patterns first, problems second.”_  
+> Happy grinding! 💪
