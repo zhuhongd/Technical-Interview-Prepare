@@ -49,24 +49,27 @@ When you see words like *unique*, *duplicate*, *count*, *frequency*, or *seen*, 
 
 ## 3. Practice line-up & why these questions matter
 
-| # | Problem                                                                                | Concept Drilled            | Why It's Important                                                                      |
-| - | -------------------------------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------------------------------- |
-| 1 | [Contains Duplicate (LC 217)](https://leetcode.com/problems/contains-duplicate/)       | Set membership             | The fastest way to check for duplicates using O(1) lookups.                             |
-| 2 | [Two Sum (LC 1)](https://leetcode.com/problems/two-sum/)                               | Hash map complement search | Turns O(n²) brute-force into O(n) elegance; the most common interview question.         |
-| 3 | [Group Anagrams (LC 49)](https://leetcode.com/problems/group-anagrams/)                | Mapping and grouping       | Efficiently groups items by key, teaches aggregation with hash maps.                    |
-| 4 | [Subarray Sum Equals K (LC 560)](https://leetcode.com/problems/subarray-sum-equals-k/) | Prefix sum + hash map      | Combines prefix logic and fast lookups; leads to more advanced patterns in later weeks. |
-
+| # | Problem                                                                                     | Pattern / Concept                 | Why It’s Important                                                         |
+|---|---------------------------------------------------------------------------------------------|-----------------------------------|-----------------------------------------------------------------------------|
+| 1 | Contains Duplicate (LC 217)                                                                 | Set membership                    | Fast duplicate check with O(1) lookups.                                    |
+| 2 | Valid Anagram / Is Anagram (LC 242)                                                         | Frequency map                     | Intro to counting patterns; basis for grouping & sliding window tricks.    |
+| 3 | Two Sum (LC 1)                                                                              | Hash map complement search        | Canonical O(n²) → O(n) refactor.                                           |
+| 4 | Group Anagrams (LC 49)                                                                      | Mapping & grouping (canonical key)| Aggregation by key; practice hashing compound structures.                  |
+| 5 | Top K Frequent Elements (LC 347)                                                            | Map + heap / bucket sort          | Frequency + selection; segue into heaps/buckets.                           |
+| 6 | Products of Array Except Self (LC 238)                                                      | Prefix products + hash alt        | Shows when hashes aren’t needed vs. when they can help (contrast exercise).|
+| 7 | Longest Consecutive Sequence (LC 128)                                                       | Set membership + linear scan      | Classic O(n) trick with set; reinforces “seen” + boundary checks.          |
+| 8 | Subarray Sum Equals K (LC 560)                                                              | Prefix sum + hash map             | Combines running totals with O(1) lookups—foundation for harder variants.  |
 
 ---
 
 ## 4. Learning outcomes
 
-By the end of Week 1, you should be able to:
+By the end of Week 1, you can:
 
-1. **Explain** how a hash table achieves average O(1) performance and what causes slowdowns.
-2. **Decide instantly** between using a dict or set for a new problem.
-3. **Refactor** a brute-force double-loop into a hash-based solution.
-4. **Recognize** when a problem needs frequency counting, fast duplicate check, or key→index mapping.
+1. **Justify** when a hash map vs. hash set is ideal (given a problem statement).  
+2. **Transform** a nested-loop (O(n²)) solution into O(n) using hashes.  
+3. **Explain** why average-case operations are O(1) and what breaks that.  
+4. **Apply** prefix-sum + hash technique to count subarrays with a target property.
 
 ---
 
