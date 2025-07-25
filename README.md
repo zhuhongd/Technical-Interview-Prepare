@@ -24,7 +24,7 @@ It doubles as my **EECS4070 directed studies project**, where I measure how a st
 ---
 
 ## 🗂 Repo Structure
-
+```
 ├── week1 (Hashmap, Hashset, Heap, List)
 ├── week2 (Two Pointers)
 ├── week3 (Sliding Window)
@@ -34,7 +34,7 @@ It doubles as my **EECS4070 directed studies project**, where I measure how a st
 ├── week7 (Trees & BST fundamentals)
 │   └── ...
 └── README.md                     # This file
-
+```
 
 - Each week has:
   - `README.md` (concepts, why-it-matters, practice table, skip test)
