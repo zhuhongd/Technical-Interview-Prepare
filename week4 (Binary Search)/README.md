@@ -119,5 +119,5 @@ Pass → move to **Week 5**.
 
 ### ➡️ Next Up
 
-**Week 5 — Stacks, Queues & Monotonic Structures (or Linked Lists if you reorder).**
+**Week 5 — Linked Lists.**
 

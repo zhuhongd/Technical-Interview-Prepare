@@ -1,89 +1,123 @@
 # Week 3 — Sliding Window (Fixed & Variable Size)
 
-> "Don't scan; slide your way to efficiency."  
+> “Don’t scan; slide.”  
 > — Every efficient LeetCode solver
+
+---
+
+### 🎯 Week Goal (and study tie‑in)
+Master fixed-size, variable-size, and deque-backed sliding windows so you can turn O(n²) scans into O(n) passes.  
+**Research hook:** Log how recognizing this pattern changes your solve time and confidence vs. brute force.
 
 ---
 
 ## 1. Why Sliding Window?
 
-Sliding Window is an essential pattern for solving problems involving **contiguous sequences** like subarrays or substrings. We need to have the basic knowledge of two pointers, so you can approach sliding windows, thats why i put it a week after two pointers
-
-Instead of brute-forcing every possible subarray (O(n²)), sliding window techniques reduce complexity to O(n) by expanding and shrinking a window dynamically.
-
----
-
-## 2. When do I use Sliding Window?
-
-Typical clues that you should consider a sliding window:
-
-| When the question mentions...                  | You should think...                 |
-|------------------------------------------------|-------------------------------------|
-| “Window of size k”                             | Fixed-size window                   |
-| “Subarray/subsequence with sum ≥ target”       | Variable-size window                |
-| “Longest substring without repeating chars”    | Expand/shrink window dynamically    |
-| “Maximum/minimum of subarrays”                 | Maintain max/min using deque        |
-| “Frequency/count of characters”                | Sliding window + hash map/counter   |
+When a problem asks about **contiguous** subarrays/substrings, sliding window often replaces brute-force enumeration.  
+We build on Week 2’s two-pointer intuition—now we **expand** and **shrink** a window to maintain constraints.
 
 ---
 
-## 3. Types of Sliding Window
+## 2. When to Use It
 
-### Fixed-size Sliding Window
-Used when the size of the window is **given explicitly**.
+| If the prompt mentions…                          | Think…                            |
+|--------------------------------------------------|-----------------------------------|
+| “Window of size `k`”                             | **Fixed-size** window             |
+| “Smallest/longest subarray with sum ≥ / ≤ X”     | **Variable-size** expand–shrink   |
+| “Longest substring without repeating characters” | Variable window + set/map         |
+| “Max/min in each window”                         | Fixed window + **monotonic deque**|
+| “Frequency/count of chars in substring”          | Window + hashmap/counter          |
 
-**Template:**
+---
+
+## 3. Types & Templates
+
+### 🔹 Fixed-size Window
+Size is given (e.g., `k`):
+
 ```python
-window_sum = 0
 L = 0
+curr = 0
 for R in range(len(nums)):
-    window_sum += nums[R]
+    curr += nums[R]
     if R - L + 1 > k:
-        window_sum -= nums[L]
+        curr -= nums[L]
         L += 1
+    # process window when size == k
 ```
 
-## 4 Practice Problem Line-Up & Why Each Matters
+### 🔹 Variable-Size Window (expand–shrink)
 
-| # | Problem (LeetCode) | File | Window Type | Why it matters |
-|---|--------------------|------|-------------|----------------|
-| 1 | Contains Duplicate II (LC 219) | `contains_duplicate_ii.py` | **Fixed** | Core window + `set` for “duplicates within k” |
-| 2 | Number of Sub-arrays of Size k & Avg ≥ Threshold (LC 1343) | `subarrays_avg_threshold.py` | **Fixed** | Rolling-sum template for O(1) updates |
-| 3 | Minimum Size Subarray Sum (LC 209) | `min_size_subarray_sum.py` | **Variable** | Classic expand-shrink to minimize length |
-| 4 | Longest Substring Without Repeating Chars (LC 3) | `longest_unique_substring.py` | **Variable** | Tracks unique chars with a moving set/map |
-| 5 | Longest Repeating Character Replacement (LC 424) | `longest_repeating_char_replace.py` | **Variable** | Window + frequency map; “at most k changes” |
-| 6 | Minimum Window Substring (LC 76) | `minimum_window_substring.py` | **Variable** | Advanced: two counters + shrink to minimum |
-| 7 | Sliding Window Maximum (LC 239) | `sliding_window_maximum.py` | **Fixed** + deque | Monotonic deque for O(1) max retrieval |
+We grow `R`, then shrink `L` until the window satisfies a condition:
 
-> *All `.py` files include full explanations and step-by-step comments.*
+```python
+L = 0
+for R in range(len(s)):
+    # include s[R] in the window
+    ...
+    while condition_is_violated():
+        # exclude s[L] from the window
+        L += 1
+    # window [L..R] now satisfies the condition
+```
 
----
+### 🔹 Monotonic Deque Window (max/min in O(1))
 
-## 5 Objectives for Week 3
-
-- [x] **Recognize** when a sliding-window solution is appropriate.  
-- [x] **Implement** both fixed-size and variable-size windows from memory.  
-- [x] **Combine** windows with sets, hash maps, counters, or deques.  
-- [x] **Explain** why total pointer movement ⇒ **amortized O(n)** time.
+Maintain indices in a deque in decreasing (for max) or increasing (for min) order so the **front is always the answer**.  
+- Pop from the **back** while the new value breaks monotonicity.  
+- Pop from the **front** if it falls out of the current window.
 
 ---
 
-## 6 Skip Test 🚦
+## 4. Practice Line-up & Why These Matter
 
-Solve **[Minimum Window Substring (LC 76)](https://leetcode.com/problems/minimum-window-substring/)** in ≤ 30 minutes using the sliding-window + hash-map approach.
+| # | Problem (LeetCode)                                                      | File name                                      | Window Type              | Why it matters                                           |
+|---|-------------------------------------------------------------------------|------------------------------------------------|--------------------------|----------------------------------------------------------|
+| 1 | Contains Duplicate II (LC 219)                                          | `1. [easy] Contains Duplicate II.py`           | **Fixed** (`k` distance) | Set + fixed-window skeleton                              |
+| 2 | Number of Sub-arrays of Size k & Avg ≥ Threshold (LC 1343)              | `2. [Medium] Number of Sub-arrays of Size ...py`| **Fixed**                | Rolling-sum template for O(1) updates                    |
+| 3 | Minimum Size Subarray Sum (LC 209)                                      | `3. [Medium] Minimum Size Subarray Sum.py`     | **Variable (≥ target)**  | Classic expand–shrink                                    |
+| 4 | Longest Substring Without Repeating Chars (LC 3)                        | `4. [Medium] Longest Substring Without Repeating Chars.py` | **Variable + set/map**   | “No duplicates” template                                 |
+| 5 | Longest Repeating Character Replacement (LC 424)                        | `5. [Medium] Longest Repeating Character Replace...py`     | **Variable + freq map**  | “At most k changes” trick                                |
+| 6 | Minimum Window Substring (LC 76)                                        | `6. [Hard] Minimum Window Substring.py`        | **Variable + 2 maps**    | Advanced: cover/need counters, shrink to minimum         |
+| 7 | Sliding Window Maximum (LC 239)                                         | `7. [Hard] Sliding Window Maximum.py`          | **Fixed + deque**        | Monotonic deque = O(1) per-window max                    |
 
-Pass it? 🎉 — Proceed to **Week 4: Binary Seach and Linked List**.
+> Your `.py` files already have explanations—link them here for quick navigation.
 
 ---
 
-## 7 Further Reading & Videos
+## 5. Objectives
 
-- 📘 [NeetCode — Sliding Window Patterns](https://neetcode.io/roadmap)  
-- 🎥 [Tech With Tim — Sliding Window Technique](https://www.youtube.com/watch?v=MK-NZ4hN7rs)  
-- 📚 [LeetCode Explore Card — Sliding Window](https://leetcode.com/explore/learn/card/sliding-window/)
+- **Recognize** sliding-window clues quickly.  
+- **Implement** fixed and variable windows from memory.  
+- **Combine** windows with sets/maps/counters/deques.  
+- **Explain** why total pointer movement ⇒ amortized `O(n)` time.
 
 ---
 
-**Next up →** **Week 4 — Prefix Sum & Greedy**: learn to preprocess arrays for constant-time range queries and to make optimal local decisions.
+## 6. Skip Test 🚦
 
-*Happy sliding!* 🧠🚀
+Solve **[Minimum Window Substring (LC 76)](https://leetcode.com/problems/minimum-window-substring/)** in ≤ 30 minutes using a correct sliding-window + hashmap approach.  
+Pass → proceed to **Week 4: Binary Search**.
+
+---
+
+## 7. (Optional) Data to Log for the Study
+
+- Time to first accepted solution  
+- Number of wrong submissions  
+- Confidence before/after (1–5): “I can spot a sliding-window problem instantly.”
+
+---
+
+## 8. Further Reading & Videos
+
+- NeetCode — Sliding Window patterns  
+- Tech With Tim — Sliding Window Technique (YouTube)  
+- LeetCode Explore Card — Sliding Window
+
+---
+
+**Next up → Week 4: Binary Search**  
+Then we’ll hit Stacks/Queues/Monotonic structures in Week 5.
+
+_Happy sliding!_ 🧠🚀
