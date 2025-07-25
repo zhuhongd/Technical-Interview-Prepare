@@ -5,98 +5,119 @@
 
 ---
 
-## 1 Why Binary Search?
-
-Binary search is a highly efficient method for searching elements within **sorted arrays or ranges**. While linear search (**O(n)**) checks every element sequentially, binary search repeatedly cuts the search space in half, significantly speeding up the process to **O(log n)**.
-
-**Real-life analogy:**  
-Searching for a word in a dictionary — open the dictionary in the middle, determine if your word is before or after, and repeat until you find it.
-
-### Common Clues in Interview Questions:
-
-| When the question mentions...                 | You should think about...                          |
-|-----------------------------------------------|----------------------------------------------------|
-| “Sorted array” or “rotated sorted array”      | Binary search, possibly with modification          |
-| “Find minimum/maximum” or “Optimal value”     | Binary search on answer ranges                     |
-| “Logarithmic complexity O(log n)”             | Binary search or divide-and-conquer                |
+### 🎯 Week Goal (and why it matters for the study)
+Master two flavors of Binary Search—**on indices** and **on answers (monotonic predicates)**—and log how this pattern affects speed/accuracy vs. brute force.
 
 ---
 
-## 2. How Binary Search Works (Step-by-Step)
+## 1. Why Binary Search?
 
-**Key Idea:**  
-Given a sorted array, binary search divides the array in half repeatedly, narrowing down the search space until the target is found or the space is exhausted.
+Binary search cuts the search space in half each step → **O(log n)** instead of O(n).  
+Use it when data is **sorted** OR when you can define a **monotonic yes/no condition** over a range of answers.
 
-### Typical Binary Search Template:
+**Real-life analogy:** Flip through a dictionary by halves until you land on the word.
+
+---
+
+## 2. Common Clues in Interview Questions
+
+| If the prompt says…                           | You should consider…                        |
+|-----------------------------------------------|---------------------------------------------|
+| “Sorted array” / “Rotated sorted array”       | Classic index binary search (with tweaks)   |
+| “Find min/max feasible value” / “capacity”    | Binary search on the **answer space**       |
+| “Must be O(log n)”                            | Binary search or divide & conquer           |
+
+---
+
+## 3. How Classic Binary Search Works
+
+**Template (index search):**
+
 ```python
-L = 0
-R = len(arr) - 1
-
+L, R = 0, len(arr) - 1
 while L <= R:
     mid = L + (R - L) // 2
-
     if arr[mid] == target:
         return mid
     elif arr[mid] < target:
         L = mid + 1
     else:
         R = mid - 1
-
 return -1
 ```
-** Note:
-We use L + (R - L) // 2 instead of (L + R) // 2 to avoid potential overflow.
 
+> **Note:** Use `L + (R - L) // 2` instead of `(L + R) // 2` to avoid integer overflow in languages with fixed-width ints (not an issue in Python, but a good habit).
 
-## 3. Two Common Variations of Binary Search
+---
 
-### 🔹 Variation 1: Search an Array
+## 4. Two Core Variations
 
-**Given:** A sorted array and a target  
-**Goal:** Find the target’s index or return `-1` if it doesn’t exist.
+### 🔹 Variation A: **Search an Array (index-based)**
+Given a sorted array, find the index/element (or insertion point).
 
-**Example:**
+### 🔹 Variation B: **Binary Search on Answers (predicate-based)**
+You can’t binary search an index, but you can ask:  
+*“Is it possible with speed `x`?”* or *“Can we allocate with capacity `x`?”*  
+Define a monotonic `ok(x)` and binary search the smallest `x` that returns `True`.
+
+**Predicate template (first `True`):**
 ```python
-arr = [1, 2, 3, 4, 5, 6, 7, 8]
-target = 5
+def ok(x) -> bool:
+    # check feasibility for x
+    ...
+
+L, R = lo, hi  # inclusive bounds on answer space
+while L < R:
+    mid = (L + R) // 2
+    if ok(mid):
+        R = mid
+    else:
+        L = mid + 1
+return L
 ```
 
-| # | Problem                                                                                                            | File                                | Concept                    | Why it matters                  |
-| - | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------- | -------------------------- | ------------------------------- |
-| 1 | [Binary Search (LC 704)](https://neetcode.io/problems/binary-search)                                               | `binary_search.py`                  | Basic binary search        | Essential foundation            |
-| 2 | [Search a 2D Matrix (LC 74)](https://neetcode.io/problems/search-a-2d-matrix)                                      | `search_2d_matrix.py`               | Binary search in 2D        | 2D logic extension              |
-| 3 | [Koko Eating Bananas (LC 875)](https://neetcode.io/problems/koko-eating-bananas)                                   | `koko_eating_bananas.py`            | Binary search on answer    | Search to minimize a result     |
-| 4 | [Find Minimum in Rotated Sorted Array (LC 153)](https://neetcode.io/problems/find-minimum-in-rotated-sorted-array) | `find_min_rotated_sorted_array.py`  | Modified binary search     | Handle rotated inputs           |
-| 5 | [Search in Rotated Sorted Array (LC 33)](https://neetcode.io/problems/search-in-rotated-sorted-array)              | `search_in_rotated_sorted_array.py` | Modified binary search     | Search with logical partitions  |
-| 6 | [Median of Two Sorted Arrays (LC 4)](https://neetcode.io/problems/median-of-two-sorted-arrays)                     | `median_two_sorted_arrays.py`       | Binary search partitioning | Advanced usage of binary search |
+## 5. Practice Line-up & Why These Matter
+
+| # | Problem                                                                                     | File name                                   | Variant | Concept / Why It Matters                                               |
+|---|----------------------------------------------------------------------------------------------|---------------------------------------------|---------|-------------------------------------------------------------------------|
+| 1 | [Binary Search (LC 704)]                                                                     | `1. [easy] binary search.py`                 | A       | Pure template. Make zero off-by-one errors here.                        |
+| 2 | [Search a 2D Matrix (LC 74)]                                                                 | `2. [easy] search a 2D matrix.py`            | A       | Treat 2D as 1D (index mapping).                                         |
+| 3 | [Koko Eating Bananas (LC 875)]                                                               | `3. [Medium] Koko Eating Bananas.py`         | B       | Binary search on **answer space** (rate). Introduces predicate `ok(x)`. |
+| 4 | [Find Minimum in Rotated Sorted Array (LC 153)]                                              | `4. [Medium] Find Min Rotated Array.py`      | A (mod) | Rotation pivot logic; careful with mid comparisons.                     |
+| 5 | [Search in Rotated Sorted Array (LC 33)]                                                     | `5. [Medium] Search In Rotated Sorted Arra...py` | A (mod) | Partition thinking; two sorted halves.                                  |
+| 6 | [Time Based Key-Value Store (LC 981)]                                                        | `6. [Medium] Time Based Key-Value Store.py`  | A/B*    | Map of lists + binary search by timestamp; hybrid pattern.              |
+| 7 | [Median of Two Sorted Arrays (LC 4)] *(Optional / Hard)*                                     | `7. [Hard][Optional] Median of Two Sorted ...py` | A (part)| Partitioning two arrays; advanced BS trick.                              |
+
+\*Uses hash map for storage + binary search on the timestamp list — good crossover problem.
+
+---
 
 ## 6. Skip Test 🚦
 
-If you can solve  
-[**Search in Rotated Sorted Array (LC 33)**](https://neetcode.io/problems/search-in-rotated-sorted-array)  
-in **20 minutes or less** using modified binary search and pass all test cases,  
-you’re ready to move on to **Week 5**!
+Solve **Search in Rotated Sorted Array (LC 33)** in **≤ 20 minutes** with a correct modified binary search solution.  
+Pass → move to **Week 5**.
 
 ---
 
-## 7. Further Reading & Resources
+## 7. Common Pitfalls
 
-- [LeetCode Explore Card: Binary Search](https://leetcode.com/explore/learn/card/binary-search/)
-- [Blind 75 — Binary Search Section](https://blind75.vercel.app/)
-- [Google Research: Overflow-safe mid calculation](https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html)
+- Off-by-one loops (`while L < R` vs `<=`)  
+- Not updating bounds → infinite loop  
+- Mixing index-BS template with answer-BS logic  
+- Forgetting to prove the predicate is monotonic (for answer-BS)  
+- Mis-handling mid and neighbors in rotated-array problems
 
 ---
 
-## ➡️ Next Up
+## 8. Further Reading & Resources
 
-### **Week 5 — maybe Stacks, Queues, and Monotonic Structures or linked list?**
+- LeetCode Explore Card: Binary Search  
+- Blind 75 — Binary Search section  
+- Google blog: overflow-safe `mid`
 
-You’ll learn how to approach problems like:
+---
 
-- Stock span
-- Largest rectangle in histogram
-- Sliding window maximum
-- Valid parentheses / bracket matching
+### ➡️ Next Up
 
-These patterns are essential for solving tough linear scan problems and appear frequently in interviews.
+**Week 5 — Stacks, Queues & Monotonic Structures (or Linked Lists if you reorder).**
 
