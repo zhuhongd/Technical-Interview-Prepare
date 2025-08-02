@@ -61,3 +61,29 @@ Why This Problem Matters:
 This is a classic use case for the two-pointer technique on a sorted array.
 It reinforces the pattern of narrowing down the range from both ends to find a match.
 """
+
+# -----------------------------
+# Simple offline tests
+# -----------------------------
+def _run_tests():
+    sol = Solution().twoSum
+    TESTS = [
+        ([1, 2, 3, 4], 3, [1, 2], "example-basic"),
+        ([2, 7, 11, 15], 9, [1, 2], "classic-9"),
+        ([1, 1, 2, 3], 5, [3, 4], "unique-2+3"),
+        ([1, 2, 2, 9], 4, [2, 3], "exactly-two-2s"),
+        ([-3, -1, 0, 2, 4], 3, [2, 5], "unique-(-1)+4"),
+        ([0, 0, 3, 4], 0, [1, 2], "two-zeros-unique"),
+        ([1, 2], 3, [1, 2], "min-length"),
+        ([1, 4, 5, 9, 11], 14, [3, 4], "unique-5+9"),
+    ]
+    passed = 0
+    for i, (nums, target, expected, label) in enumerate(TESTS, 1):
+        got = sol(nums, target)
+        ok = (got == expected)
+        print(f"[{i:02d}][{label:<22}] nums={nums} target={target} -> got={got} expected={expected} | {'✅' if ok else '❌'}")
+        passed += ok
+    print(f"\nPassed {passed}/{len(TESTS)} tests.")
+
+if __name__ == "__main__":
+    _run_tests()

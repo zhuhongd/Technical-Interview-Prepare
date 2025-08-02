@@ -62,3 +62,59 @@ class Solution:
             hash_map[nums[i]] = i
 
 # Note: The idea is to remember what number we're looking for (target - current) as we scan through the list, instead of scanning again.
+
+# -----------------------------
+# Inline tests (no frameworks needed)
+# -----------------------------
+
+def _run_tests() -> None:
+    sol = Solution().two_sum
+
+    # Each case: (nums, target, expected_indices, label)
+    TEST_CASES = [
+        # From prompt
+        ([3, 4, 5, 6], 7,  [0, 1], "example-1"),
+        ([4, 5, 6],    10, [0, 2], "example-2"),
+        ([5, 5],       10, [0, 1], "example-3"),
+
+        # Standard basics
+        ([2, 7, 11, 15], 9,  [0, 1], "classic"),
+        ([3, 2, 4],      6,  [1, 2], "unsorted"),
+        ([0, 4, 3, 0],   0,  [0, 3], "zeros-with-dup"),
+        ([-3, 4, 1, 90], 1,  [0, 1], "negative-plus-positive"),
+        ([2, -2, 9],     0,  [0, 1], "sum-to-zero"),
+
+        # Duplicates / multiple same values
+        ([1, 3, 3],      6,  [1, 2], "duplicate-3s"),
+        ([1, 1, 2, 3],   2,  [0, 1], "duplicate-1s-early"),
+        ([1, 2, 1, 3],   2,  [0, 2], "duplicate-1s-later"),
+
+        # Large-ish but quick
+        (list(range(1000)), 1997, [998, 999], "long-range"),
+    ]
+
+    passed = 0
+    for i, (nums, target, expected, label) in enumerate(TEST_CASES, 1):
+        got = sol(nums, target)
+
+        # verify correctness and "smaller index first" contract
+        ok = (
+            got == expected and
+            0 <= got[0] < got[1] < len(nums) and
+            nums[got[0]] + nums[got[1]] == target
+        )
+        passed += ok
+
+        def _preview(arr, limit=60):
+            s = str(arr)
+            return s if len(s) <= limit else s[:limit] + "...]"
+
+        print(f"[{i:02d}][{label:<18}] nums={_preview(nums):<64} "
+              f"target={target:<7} -> got={got} expected={expected} | {'✅' if ok else '❌'}")
+
+    total = len(TEST_CASES)
+    print(f"\nPassed {passed}/{total} tests.")
+
+
+if __name__ == "__main__":
+    _run_tests()

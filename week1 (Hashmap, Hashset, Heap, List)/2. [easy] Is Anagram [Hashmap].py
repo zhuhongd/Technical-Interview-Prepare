@@ -61,3 +61,68 @@ class Solution:
 
         # Step 3: Compare dictionaries
         return freq_s == freq_t
+
+# --------------------------
+# Inline tests (no internet / no frameworks needed)
+# --------------------------
+
+def _run_tests() -> None:
+    sol = Solution().isAnagram
+
+    # Each item: (s, t, expected, label)
+    TEST_CASES = [
+        # From examples
+        ("racecar", "carrace", True,  "example-true"),
+        ("jar",     "jam",     False, "example-false"),
+
+        # Basics / edges
+        ("", "", True, "empty"),
+        ("a", "a", True, "single-true"),
+        ("a", "b", False, "single-false"),
+        ("ab", "ba", True, "two-letters-swap"),
+        ("ab", "ab", True, "identical"),
+
+        # Same letters, different order
+        ("listen", "silent", True, "listen-silent"),
+        ("anagram", "nagaram", True, "classic-true"),
+
+        # Same set of letters, different counts
+        ("aab", "aba", True, "same-counts"),
+        ("aab", "abb", False, "different-counts"),
+        ("abcd", "abce", False, "one-letter-off"),
+
+        # Repeated characters
+        ("dddd", "dddd", True, "all-same"),
+        ("aaaaabbbb", "bbaaaab ab".replace(" ", ""), True, "spaces-ignored-in-setup"),  # still lowercase letters
+
+        # Different lengths
+        ("abc", "ab", False, "length-mismatch"),
+
+        # Constructed larger but still fast
+        ("leetcode", "codeleet", True, "leetcode"),
+        ("xyzxyz", "xxyzzy", True, "structure-match"),
+
+        # Long sequences
+        ("a"*1000 + "b"*1000, "b"*1000 + "a"*1000, True, "long-true"),
+        ("a"*1000 + "b"*1000, "a"*1001 + "b"*999, False, "long-false"),
+    ]
+
+    passed = 0
+    for i, (s, t, expected, label) in enumerate(TEST_CASES, 1):
+        got = sol(s, t)
+        ok = (got == expected)
+        passed += ok
+
+        def _prev(x: str, maxlen=20):
+            return (x if len(x) <= maxlen else x[:maxlen] + "...")
+
+        print(f"[{i:02d}][{label:<18}] "
+              f"s(len={len(s)}:'{_prev(s)}'), t(len={len(t)}:'{_prev(t)}') "
+              f"-> got={got} expected={expected} | {'✅' if ok else '❌'}")
+
+    total = len(TEST_CASES)
+    print(f"\nPassed {passed}/{total} tests.")
+
+
+if __name__ == "__main__":
+    _run_tests()

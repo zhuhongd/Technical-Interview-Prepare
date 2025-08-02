@@ -124,11 +124,80 @@ In interviews, you can start with the sorted-string method and improve to the fr
 
 """
 
-# You can test it like this (uncomment to run):
-# --------------------------------------------------
-# if __name__ == "__main__":
-#     sol1 = SolutionSortKey()
-#     sol2 = SolutionCharCountKey()
-#     test_input = ["act", "pots", "tops", "cat", "stop", "hat"]
-#     print("Sorted Key:", sol1.groupAnagrams(test_input))
-#     print("Char Count Key:", sol2.groupAnagrams(test_input))
+# -----------------------------
+# Inline tests (order-insensitive comparison)
+# -----------------------------
+
+def _normalize(groups: List[List[str]]) -> List[tuple]:
+    """
+    Convert list of groups into a canonical, order-insensitive form:
+    - Sort each group internally
+    - Convert groups to tuples
+    - Sort the list of tuples
+    """
+    return sorted(tuple(sorted(g)) for g in groups)
+
+def _run_tests() -> None:
+    sol = SolutionSortKey().groupAnagrams
+
+    # Each case: (input_strs, expected_groups, label)
+    TEST_CASES = [
+        # Examples
+        (["act", "pots", "tops", "cat", "stop", "hat"],
+         [["act", "cat"], ["pots", "tops", "stop"], ["hat"]],
+         "example-mixed"),
+        (["x"], [["x"]], "single-letter"),
+        ([""], [[""]], "single-empty"),
+
+        # Duplicates and repeated words
+        (["eat", "tea", "ate", "eat"],
+         [["eat", "tea", "ate", "eat"]],
+         "with-duplicates"),
+
+        # Multiple groups, including singletons
+        (["abc", "bca", "cab", "foo", "oof", "bar", ""],
+         [["abc", "bca", "cab"], ["foo", "oof"], ["bar"], [""]],
+         "mixed-groups"),
+
+        # Non-anagrams with overlapping letters
+        (["ab", "a"], [["ab"], ["a"]], "different-lengths"),
+
+        # Many empties
+        (["", "", "a"],
+         [["", ""], ["a"]],
+         "many-empties"),
+
+        # Large-ish but quick
+        (["aaa", "aaa", "aaaa", "aa", "baa", "aba", "aab"],
+         [["aaa", "aaa"], ["aaaa"], ["aa"], ["baa", "aba", "aab"]],
+         "length-variety"),
+
+        # No mixing across groups
+        (["bat", "tab", "tan", "ant", "eat", "tea", "ate"],
+         [["bat", "tab"], ["tan", "ant"], ["eat", "tea", "ate"]],
+         "canonical-classic"),
+    ]
+
+    passed = 0
+    for i, (inp, expected, label) in enumerate(TEST_CASES, 1):
+        got = sol(inp)
+        ok = _normalize(got) == _normalize(expected)
+        passed += ok
+
+        def _prev_list(xs, maxlen=70):
+            s = str(xs)
+            return s if len(s) <= maxlen else s[:maxlen] + "...]"
+
+        print(f"[{i:02d}][{label:<18}] input={_prev_list(inp):<72} "
+              f"-> ok={ok} | {'✅' if ok else '❌'}")
+
+        if not ok:
+            print("  expected:", _normalize(expected))
+            print("  got     :", _normalize(got))
+
+    total = len(TEST_CASES)
+    print(f"\nPassed {passed}/{total} tests.")
+
+
+if __name__ == "__main__":
+    _run_tests()
