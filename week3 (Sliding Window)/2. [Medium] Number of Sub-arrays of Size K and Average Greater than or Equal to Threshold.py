@@ -1,56 +1,52 @@
 """
-Problem: Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
+Number of Sub-arrays of Size K and Average ≥ Threshold — EECS4070 (Explained, Single Active Solution)
 
-Given an integer array `arr`, and two integers `k` and `threshold`, return the number of contiguous subarrays of size `k` 
-whose average is greater than or equal to `threshold`.
+Problem
+-------
+Given an integer array `arr`, and integers `k` and `threshold`, return the number of
+contiguous subarrays of length `k` whose **average** is ≥ `threshold`.
 
-Examples:
-Input: arr = [2, 2, 2, 2, 5, 5, 5, 8], k = 3, threshold = 4
-Output: 3
-Explanation:
-Subarrays of size 3:
-- [2,2,2] → avg = 2
-- [2,2,5] → avg = 3
-- [2,5,5] → avg = 4 ✅
-- [5,5,5] → avg = 5 ✅
-- [5,5,8] → avg = 6 ✅
+Link
+----
+https://leetcode.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/
 
-Only 3 subarrays have average >= 4.
+Key Examples
+------------
+Example 1
+arr = [2, 2, 2, 2, 5, 5, 5, 8], k = 3, threshold = 4  →  3
 
-Input: arr = [11,13,17,23,29,31,7,5,2,3], k = 3, threshold = 5
-Output: 6
-Explanation: The first 6 subarrays of size 3 have averages greater than or equal to 5.
+Subarray     Sum   Avg  Pass?
+-----------------------------
+[2,2,2]       6     2     ✘
+[2,2,5]       9     3     ✘
+[2,5,5]      12     4     ✅
+[5,5,5]      15     5     ✅
+[5,5,8]      18     6     ✅
+Total: 3 subarrays with avg ≥ 4.
 
-Constraints:
+Example 2
+arr = [11,13,17,23,29,31,7,5,2,3], k = 3, threshold = 5  →  6
+(The first 6 windows of size 3 meet or exceed the threshold.)
+
+Constraints
+-----------
 - 1 <= arr.length <= 10^5
 - 1 <= arr[i] <= 10^4
 - 1 <= k <= arr.length
 - 0 <= threshold <= 10^4
-
-Link: https://leetcode.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/
 """
 
 # -----------------------------
-# Brute Force Approach:
+# Optimized Sliding Window (O(n), O(1) space)
 # -----------------------------
-# Slide a window of size k across the array and compute the average every time.
-# Time complexity: O(n * k)
-# Space complexity: O(1)
-
-class Solution:
-    def numOfSubarrays_brute(self, arr: list[int], k: int, threshold: int) -> int:
-        count = 0
-        for i in range(len(arr) - k + 1):
-            avg = sum(arr[i:i + k]) / k
-            if avg >= threshold:
-                count += 1
-        return count
-# -----------------------------
-# Optimized Sliding Window Approach:
-# -----------------------------
-# Instead of recomputing sum every time, we maintain a running window sum.
-# Time complexity: O(n)
-# Space complexity: O(1)
+# Maintain the sum of the current window of size k.
+# Compare window_sum directly with (k * threshold) to avoid floats.
+#
+# Window update per step:
+#   window_sum += arr[i]      # add new right element
+#   window_sum -= arr[i - k]  # remove old left element
+#
+# If window_sum >= k * threshold → count += 1
 
 class Solution:
     def numOfSubarrays(self, arr: list[int], k: int, threshold: int) -> int:
@@ -64,17 +60,76 @@ class Solution:
                 count += 1
         return count
 
-"""
-Sliding Window Summary:
 
-- Type: Fixed-size window (size = k)
-- Condition to check: Is the current window's sum >= k * threshold?
-- Update logic:
-    - Add next element: arr[i]
-    - Remove first element from previous window: arr[i - k]
+# -----------------------------
+# (Optional) Brute Force for study (commented)
+# -----------------------------
+# class Solution:
+#     def numOfSubarrays_brute(self, arr: list[int], k: int, threshold: int) -> int:
+#         count = 0
+#         for i in range(len(arr) - k + 1):
+#             if sum(arr[i:i+k]) >= k * threshold:
+#                 count += 1
+#         return count
 
-This is a classic use of sliding window to reduce repetitive work.
-Instead of computing sum every time, we just update it in O(1) as the window slides.
 
-Great practice for time-efficient window handling.
-"""
+# -----------------------------
+# Comprehensive offline tests
+# -----------------------------
+def _preview_arr(a, max_items=8):
+    """Safe preview for potentially huge arrays."""
+    n = len(a)
+    if n <= max_items:
+        return str(a)
+    head = ", ".join(map(str, a[:max_items//2]))
+    tail = ", ".join(map(str, a[-(max_items//2):]))
+    return f"[{head}, …, {tail}] (len={n})"
+
+def _run_tests():
+    sol = Solution().numOfSubarrays
+    TESTS = [
+        # Provided examples
+        ([2, 2, 2, 2, 5, 5, 5, 8], 3, 4, 3, "example-1"),
+        ([11,13,17,23,29,31,7,5,2,3], 3, 5, 6, "example-2"),
+
+        # Edge cases
+        ([1], 1, 1, 1, "single-element-pass"),
+        ([1], 1, 2, 0, "single-element-fail"),
+
+        # Threshold extremes
+        ([5,5,5,5], 2, 0, 3, "zero-threshold-all-pass"),
+        ([5,5,5,5], 2, 5, 3, "exact-threshold-all-pass"),
+        ([5,5,5,5], 2, 6, 0, "above-threshold-all-fail"),
+
+        # Various k sizes
+        ([4,4,4,4,4], 1, 4, 5, "k-one-all-equal"),
+        ([4,4,4,4,4], 5, 4, 1, "k-equals-length-pass"),
+        ([4,4,4,4,3], 5, 4, 0, "k-equals-length-fail"),
+
+        # Mixed values
+        ([1,2,3,4,5,6,7,8,9], 3, 5, 4, "ascending-mixed"),
+        ([9,8,7,6,5,4,3,2,1], 3, 5, 4, "descending-mixed"),
+
+        # Repeated patterns
+        ([1,2,1,2,1,2], 2, 1, 5, "repeated-pattern-low-threshold"),
+        ([1,2,1,2,1,2], 2, 2, 0, "repeated-pattern-high-threshold"),
+
+        # Alternating pass/fail
+        ([3,6,3,6,3,6], 2, 4, 5, "alternating-pass-fail"),
+
+        # Large-n sanity (kept small enough for terminal)
+        ([10**4]*1000, 1000, 10**4, 1, "large-same-pass"),
+        ([1]*1000, 1000, 2, 0, "large-same-fail"),
+    ]
+
+    passed = 0
+    for i, (arr, k, threshold, expected, label) in enumerate(TESTS, 1):
+        got = sol(arr, k, threshold)
+        ok = (got == expected)
+        passed += ok
+        print(f"[{i:02d}][{label:<32}] arr={_preview_arr(arr):<40} k={k:<5} thr={threshold:<5} -> got={got:<3} expected={expected:<3} | {'✅' if ok else '❌'}")
+
+    print(f"\nPassed {passed}/{len(TESTS)} tests.")
+
+if __name__ == "__main__":
+    _run_tests()

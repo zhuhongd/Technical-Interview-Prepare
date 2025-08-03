@@ -79,3 +79,51 @@ Sliding Window Summary:
 
 This problem is often the first step to understanding how a sliding window can **track a condition over a constrained range** (distance, time, size, etc.).
 """
+def _run_tests() -> None:
+    f = Solution().containsNearbyDuplicate
+
+    TESTS = [
+        # Prompt-style examples
+        ([1, 2, 3, 1], 3, True,  "example-true"),
+        ([2, 1, 2],     1, False, "example-false"),
+
+        # Edge: k = 0 → cannot have |i-j| <= 0 with i!=j, always False
+        ([1, 1],       0, False, "k-zero"),
+        ([1, 2, 3, 1], 0, False, "k-zero-none"),
+
+        # Edge: single element → no pair
+        ([42],         5, False, "single"),
+
+        # Duplicates just within range
+        ([1, 2, 3, 1], 2, False, "just-outside"),
+        ([1, 2, 3, 1], 3, True,  "just-inside"),
+
+        # Multiple duplicates; earliest hit should return True
+        ([1, 0, 1, 1], 1, True,  "tight-dup"),   # last two 1's distance 1
+        ([1, 2, 3, 1, 2, 3], 2, False, "pattern-no"),
+        ([1, 2, 3, 1, 2, 3], 3, True,  "pattern-yes"),
+
+        # Negative numbers, zeros, mixed values
+        ([-1, -1],     1, True,  "negatives-yes"),
+        ([-1, -1],     0, False, "negatives-no"),
+        ([0, 0, 0],    1, True,  "zeros-close"),
+        ([0, 1, 0],    1, False, "zeros-far"),
+        ([0, 1, 0],    2, True,  "zeros-just-inside"),
+
+        # Large k >= n-1: reduces to "contains any duplicate?"
+        ([1,2,3,2],    10, True,  "k-large-yes"),
+        ([1,2,3,4],    10, False, "k-large-no"),
+    ]
+
+    passed = 0
+    for i, (nums, k, expected, label) in enumerate(TESTS, 1):
+        got = f(nums, k)
+        ok = (got == expected)
+        passed += ok
+        print(f"[{i:02d}][{label:<18}] nums={nums!s:<40} k={k:<3} -> got={got} expected={expected} | {'✅' if ok else '❌'}")
+
+    print(f"\nPassed {passed}/{len(TESTS)} tests.")
+
+
+if __name__ == "__main__":
+    _run_tests()

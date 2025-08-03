@@ -1,103 +1,193 @@
 """
-Problem: Minimum Window Substring
+Minimum Window Substring — EECS4070 (Explained, Single Active Solution)
 
-Given two strings `s` and `t`, return the **smallest window (substring)** in `s` that contains **all the characters from `t`**, including duplicates.
+Problem
+-------
+Given two strings `s` and `t`, return the **smallest substring of `s`** that contains
+**all characters of `t` (including duplicates)**. If no such window exists, return "".
 
-If there is no valid window, return an empty string "".
+Link
+----
+https://leetcode.com/problems/minimum-window-substring/
 
-Examples:
-Input: s = "OUZODYXAZV", t = "XYZ"
-Output: "YXAZ"
-Explanation: This is the shortest substring of `s` that contains all characters of `t`.
+Key Examples
+------------
+s = "OUZODYXAZV", t = "XYZ"  ->  "YXAZ"
+  (Shortest substring of s that contains X, Y, and Z.)
 
-Input: s = "xyz", t = "xyz"
-Output: "xyz"
+s = "xyz", t = "xyz"         ->  "xyz"
+s = "x",   t = "xy"          ->  ""
 
-Input: s = "x", t = "xy"
-Output: ""
+Beginner’s Mental Model (Shopping List)
+---------------------------------------
+Think of `t` as a **shopping list** with quantities. For example, t = "AABC" means
+you need two 'A's, one 'B', and one 'C'. You slide a window over `s` and count what
+you “have” in your cart.
 
-Constraints:
-- 1 <= s.length, t.length <= 10^5
-- `s` and `t` consist of ASCII characters
-- The output is guaranteed to be unique
+- **Expand right** to collect missing items.
+- When your window has **all required counts**, it’s a valid cart.
+- **Shrink left** to make the window as short as possible while still valid.
+- Record the best (shortest) valid window you ever see.
 
-Link: https://leetcode.com/problems/minimum-window-substring/
+What we track
+-------------
+• `required = Counter(t)`  → needed counts per character  
+• `window`                 → counts inside the current window  
+• `need = len(required)`   → how many distinct characters to satisfy  
+• `have`                   → how many of those are currently satisfied (i.e., window[c] >= required[c])
+
+Core loop (intuition first)
+---------------------------
+1) Move `r` right, add `s[r]` to `window`.
+2) If this character’s count just reached the required amount → `have += 1`.
+3) While `have == need` (window valid):
+   - Update best answer if this window is smaller.
+   - Move `l` right (pop `s[l]`) to try to **shrink**.
+   - If popping makes any character’s count drop **below** required → `have -= 1` and stop shrinking.
+
+Why it guarantees the minimum
+-----------------------------
+We only shrink when the window is valid, so any time we stop shrinking, the window
+is the **smallest valid** window ending at `r`. By checking this at every possible `r`,
+we will discover the **globally smallest** window.
+
+Common Pitfalls
+---------------
+- Forgetting duplicates (t="AABC" needs 2 A’s, not 1).
+- Using equality instead of ≥ when checking counts.
+- Updating the best answer **outside** the shrinking loop (do it **inside**, when valid).
+- Confusing case-sensitivity: ASCII means 'A' and 'a' are different.
+
+Step-by-step Trace (small, complete)
+------------------------------------
+s = "OUZODYXAZV", t = "XYZ"
+required = {'X':1, 'Y':1, 'Z':1}, need = 3
+window={}, have=0, best_len=∞, best=(-1,-1), l=0
+
+r=0:'O' → not required, have=0
+r=1:'U' → not required, have=0
+r=2:'Z' → window['Z']=1==required['Z'] → have=1
+r=3:'O' → not required
+r=4:'D' → not required
+r=5:'Y' → window['Y']=1==required['Y'] → have=2
+r=6:'X' → window['X']=1==required['X'] → have=3 (valid!)
+  shrink from l:
+    [0..6] "OUZODYX" → best=7
+    pop 'O'(0): still valid → l=1, len=6 → best=6
+    pop 'U'(1): still valid → l=2, len=5 → best=5 ("ZODYX")
+    pop 'Z'(2): window['Z'] drops below need → have=2 → stop
+r=7:'A' → not required, have=2
+r=8:'Z' → window['Z']=1 → have=3 (valid!)
+  shrink from l=3:
+    [3..8] "ODYXAZ" → try pop:
+    pop 'O'(3): valid → l=4, len=5  (best still 5)
+    pop 'D'(4): valid → l=5, len=4  → best=4 ("YXAZ")
+    pop 'Y'(5): now invalid → have=2 → stop
+r=9:'V' → not required, have=2 → end. Answer = "YXAZ"
+
+Complexity
+----------
+Time:  O(len(s)) — both pointers move right at most len(s) times.  
+Space: O(len(t) + |alphabet|) — maps for needed/have (ASCII-bounded in practice).
 """
 
-# -----------------------------
-# Sliding Window + Hash Map Approach:
-# -----------------------------
-# Use two hash maps:
-# - one for the required characters in `t` (with frequency)
-# - one for the current window in `s`
-# Expand the right pointer to include characters
-# Shrink from the left when the window contains all characters in `t`
-# Time complexity: O(n)
-# Space complexity: O(m + n) where m is len(t), n is len(s)
-
 from collections import Counter, defaultdict
+from typing import Tuple
 
+
+# -----------------------------
+# ✅ Active Solution: Sliding Window + Hash Maps (O(n))
+# -----------------------------
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         if not s or not t:
             return ""
 
-        # Step 1: Count characters needed from t
-        required = Counter(t)   # e.g., t = "XYZ" → {'X':1, 'Y':1, 'Z':1}
-        window_counts = defaultdict(int)
+        required = Counter(t)            # counts needed from t
+        window_counts = defaultdict(int) # counts inside the current window
 
-        # Step 2: Initialize sliding window pointers
-        l = 0  # left pointer
-        have = 0  # how many characters we have that meet required frequency
-        need = len(required)  # how many unique characters we need to satisfy
-        res = [-1, -1]  # placeholder for start and end of best window
+        need = len(required)  # distinct chars to satisfy
+        have = 0              # distinct chars currently satisfied
+
+        res: Tuple[int, int] = (-1, -1)
         res_len = float("inf")
 
-        # Step 3: Expand the window with the right pointer
-        for r in range(len(s)):
-            char = s[r]
-            window_counts[char] += 1
-
-            # Only count as 'have' when the character matches required frequency
-            if char in required and window_counts[char] == required[char]:
+        l = 0
+        for r, ch in enumerate(s):
+            # expand
+            window_counts[ch] += 1
+            if ch in required and window_counts[ch] == required[ch]:
                 have += 1
 
-            # Step 4: Try to shrink window from left when valid
+            # shrink to minimal while valid
             while have == need:
-                # Update best result if current window is smaller
                 if (r - l + 1) < res_len:
-                    res = [l, r]
+                    res = (l, r)
                     res_len = r - l + 1
 
-                # Shrink from the left
-                window_counts[s[l]] -= 1
-                if s[l] in required and window_counts[s[l]] < required[s[l]]:
+                left_ch = s[l]
+                window_counts[left_ch] -= 1
+                if left_ch in required and window_counts[left_ch] < required[left_ch]:
                     have -= 1
-                l += 1  # move left pointer forward
+                l += 1
 
-        # Step 5: Return result
-        start, end = res
-        return s[start:end+1] if res_len != float("inf") else ""
+        if res_len == float("inf"):
+            return ""
+        i, j = res
+        return s[i:j+1]
 
-"""
-Sliding Window Summary:
 
-- Type: Shrinking + Expanding Window
-- Goal: Track all required characters and their frequencies from t
-- Strategy:
-    - Expand right pointer to include more characters
-    - Once all required characters are satisfied → try to shrink from left
-    - Track the minimum window length that is valid
-- Hash maps are used to track what we need vs what we have
+# -----------------------------
+# Comprehensive offline tests
+# -----------------------------
+def _preview_s(s: str, max_len: int = 60) -> str:
+    """Short preview for long strings in logs."""
+    n = len(s)
+    if n <= max_len:
+        return repr(s)
+    half = max_len // 2
+    return repr(s[:half] + "…" + s[-half:]) + f" (len={n})"
 
-Example Walkthrough:
-Input: s = "OUZODYXAZV", t = "XYZ"
-- Required: {'X':1, 'Y':1, 'Z':1}
-- As we slide the window, we track character counts
-- When we hit a window like "YXAZ", we check:
-    - Does it contain all required characters?
-    - Is it smaller than our previous best window?
-    - If yes, we update the result
+def _run_tests():
+    f = Solution().minWindow
+    TESTS = [
+        # Provided-style examples
+        ("OUZODYXAZV", "XYZ", "YXAZ", "example-1"),
+        ("xyz", "xyz", "xyz", "example-2"),
+        ("x", "xy", "", "example-3-none"),
 
-This is one of the most fundamental "sliding window with character count" patterns used in interview questions.
-"""
+        # Classic LC
+        ("ADOBECODEBANC", "ABC", "BANC", "classic-lc"),
+
+        # Duplicates in t
+        ("ABCAAC", "AAC", "CAA", "dup-need-two-As"),
+        ("AABBC", "AABC", "AABBC", "dup-needs-5-window"),
+        ("AA", "AA", "AA", "exact-two-as"),
+        ("AA", "AAA", "", "need-more-than-s"),
+
+        # Case sensitivity (ASCII, not case-insensitive)
+        ("aAaAaA", "AaA", "AaA", "case-sensitive"),
+
+        # Single-char t
+        ("BBBBA", "A", "A", "single-char-t"),
+        ("BBBB", "A", "", "single-char-absent"),
+
+        # T inside S early/late
+        ("XYZZYABC", "ZZYA", "ZZYA", "covering-mixed-order"),  # needs Z,Z,Y,A -> "ZZYA"
+        ("XYZABC", "ABC", "ABC", "suffix-window"),
+
+        # Larger (but still concise)
+        ("a"*50 + "XYZ" + "b"*50, "XYZ", "XYZ", "centered-triplet"),
+    ]
+
+    passed = 0
+    for i, (s, t, expected, label) in enumerate(TESTS, 1):
+        got = f(s, t)
+        ok = (got == expected)
+        passed += ok
+        print(f"[{i:02d}][{label:<22}] s={_preview_s(s):<30} t={t!r:<10} -> got={got!r:<12} expected={expected!r:<12} | {'✅' if ok else '❌'}")
+
+    print(f"\nPassed {passed}/{len(TESTS)} tests.")
+
+if __name__ == "__main__":
+    _run_tests()

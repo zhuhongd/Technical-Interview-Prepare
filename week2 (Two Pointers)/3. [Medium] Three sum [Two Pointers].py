@@ -132,7 +132,8 @@ def _run_tests() -> None:
         ([-2, 0, 1, 1, 2],     [[-2, 0, 2], [-2, 1, 1]],    "classic-mix"),
         ([-4, -1, -1, 0, 1, 2], [[-1, -1, 2], [-1, 0, 1]],  "lc-common"),
         ([-2, -2, 0, 0, 2, 2], [[-2, 0, 2]],                "dup-pairs"),
-        ([-1, -1, -1, 2, 2],   [],                          "no-zero-sum"),
+        ([-1, -1, -1, 3], [] , "no-zero-sum"),      # -1 -1 + 3 = 1; no zero triplet
+        ([1, 2, 3], [] , "no-zero-sum-positives"),  # all positive -> can’t sum to 0
         ([-5, 2, 3, 0, 0],     [[-5, 2, 3]],                "neg-big-plus-pair"),
     ]
 
