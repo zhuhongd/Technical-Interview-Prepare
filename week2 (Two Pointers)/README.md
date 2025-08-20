@@ -38,18 +38,19 @@ while L < R:
         L += 1
 ```
 ---
+### 3. Practice Problem Line-Up & Why Each Matters
 
-## 3. Practice Problem Line-Up & Why Each Matters
-
-| # | Problem | File | Concept | Why it matters |
-|---|---------|------|---------|---------------|
-| 1 | [Remove Duplicates from Sorted Array (LC 26)](https://leetcode.com/problems/remove-duplicates-from-sorted-array/) | `remove_duplicates_from_sorted_array.py` | Two pointers (in-place) | Foundation for O(1) space “rewrite the array” tricks |
-| 2 | [Remove Duplicates from Sorted Array II (LC 80)](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/) | `remove_duplicates_from_sorted_array_ii.py` | Two pointers (allow up to k) | Shows how to generalize the pattern, track allowed count |
-| 3 | [Container With Most Water (LC 11)](https://leetcode.com/problems/container-with-most-water/) | `container_with_most_water.py` | Two pointers (maximize/minimize window) | How to shrink the search space from both sides |
-| 4 | [Trapping Rain Water (LC 42)](https://leetcode.com/problems/trapping-rain-water/) | `trapping_rain_water.py` | Prefix/Suffix max, Two pointers | Combines two pointers with prefix arrays, builds on visual intuition |
-| 5 | [Contains Duplicate II (LC 219)](https://leetcode.com/problems/contains-duplicate-ii/) | `contains_duplicate_ii.py` | Sliding window, set | Classic “track what’s in your window” problem |
-
-*(All problems are in this folder. Each .py file has a full explanation and walkthrough.)*
+| #  | Problem | File | Concept | Why it matters |
+|----|---------|------|---------|----------------|
+| W  | Palindrome Number (LC 9) | palindrome_number.py | Two pointers (digit check) | Gentle warm-up, introduces left/right comparison |
+| 1  | Valid Palindrome (LC 125) | valid_palindrome.py | Two pointers (string) | Basic pointer movement, ignores non-alphanumeric |
+| 2  | Remove Duplicates from Sorted Array (LC 26) | remove_duplicates_i.py | Two pointers (in-place) | Foundation for O(1) space “rewrite the array” tricks |
+| 3  | Remove Duplicates II (LC 80) | remove_duplicates_ii.py | Two pointers (allow up to k) | Extends pattern, generalization of in-place overwrite |
+| 4  | Two Sum II (LC 167) | two_sum_ii.py | Two pointers (sorted array) | Classic entry problem: move inward until target sum |
+| 5  | Three Sum (LC 15) | three_sum.py | Sorting + two pointers | Expands Two Sum, introduces nested pointer search |
+| 6  | 4Sum (LC 18) | 4sum.py | Sorting + two pointers + pruning | Generalizes k-sum problems, pruning & deduplication |
+| 7  | Container With Most Water (LC 11) | container_with_most_water.py | Two pointers (maximize/minimize window) | How to shrink search space from both ends effectively |
+| 8  | Trapping Rain Water (LC 42) | trapping_rain_water.py | Prefix/Suffix max + two pointers | Combines two pointers with prefix/suffix arrays, visual intuition |
 
 ---
 
