@@ -1,5 +1,5 @@
 """
-Remove Duplicates from Sorted Array II — EECS4070
+Remove Duplicates from Sorted Array II (week 03)
 
 What you're given
 -----------------
@@ -32,84 +32,15 @@ Work  : keep [0,0], [1,1], [2], [3,3] → [0,0,1,1,2,3,3, ...]
 Output: k = 7
 After : nums[:k] == [0, 0, 1, 1, 2, 3, 3]
 
-Edge thoughts
--------------
-• Length ≤ 2 → already valid (you can keep everything).  
-• Long duplicate blocks (e.g., five 0's) → keep exactly two.  
-• Already all unique → keep everything.
-
-Why the “sorted” property is the key
-------------------------------------
-Duplicates show up next to each other. If we allow **at most two**, then when we scan left→right,
-we can keep the current value `x` **iff** we haven’t already written two copies of `x` into the prefix.
-
-Intuition: Two-pointer write-in-place
--------------------------------------
-We keep two indices:
-• **fast** — scans through the array.  
-• **slow** — the position where we will **write** the next kept element.
-
-Core rule (easy to remember):
-> “Allow write if we haven’t already written two of this value.”
-
-In code, thanks to sorting, that rule is equivalent to:
-- If `slow < 2`, keep (we don’t even have two elements total yet).
-- Else, keep `x = nums[fast]` **iff** `nums[slow - 2] != x`.  
-  If they’re equal, it means the last two written elements are already `x` → skip.
-
-Algorithm (step by step)
-------------------------
-1) If `len(nums) <= 2`, return `len(nums)` (already valid).
-2) Initialize `slow = 0` (next write index).
-3) For each `fast` from 0..n-1:
-   • Let `x = nums[fast]`.  
-   • If `slow < 2` or `nums[slow-2] != x`: write `nums[slow] = x`, then `slow += 1`.  
-   • Otherwise skip (we've already kept two copies of `x`).
-4) Return `slow` as `k`. The first `k` entries `nums[:k]` are the allowed prefix.
-
-Mini dry run
-------------
-nums = [1, 1, 1, 2, 2, 3]
-slow=0
-fast=0: x=1  -> slow<2         -> keep  -> nums[0]=1, slow=1
-fast=1: x=1  -> slow<2         -> keep  -> nums[1]=1, slow=2
-fast=2: x=1  -> nums[0]==1     -> already 2 copies -> skip
-fast=3: x=2  -> nums[0]=1 != 2 -> keep  -> nums[2]=2, slow=3
-fast=4: x=2  -> nums[1]=1 != 2 -> keep  -> nums[3]=2, slow=4
-fast=5: x=3  -> nums[2]=2 != 3 -> keep  -> nums[4]=3, slow=5
-Return k=5; nums[:5] == [1, 1, 2, 2, 3]
-
-Complexity
-----------
-Time : O(n)   — single pass  
-Space: O(1)   — constant extra memory (in-place writes)
 """
 
 from typing import List
 
 
-# ============================================================
-# ✅ Active Solution: Allow at most TWO copies (O(n), O(1) space)
-# ============================================================
 class Solution:
     def remove_duplicates_allow_twice(self, nums: List[int]) -> int:
-        """
-        Modify nums in-place so each distinct value appears at most twice.
-        Return k such that nums[:k] contains the kept prefix.
-        """
-        n = len(nums)
-        if n <= 2:
-            return n  # already valid as-is
-
-        slow = 0  # next write position
-        for fast in range(n):
-            x = nums[fast]
-            if slow < 2 or nums[slow - 2] != x:
-                nums[slow] = x
-                slow += 1
-            # else: we've already kept two of x; skip this occurrence
-
-        return slow  # k
+        # your solution here
+        return 
 
 
 # -----------------------------

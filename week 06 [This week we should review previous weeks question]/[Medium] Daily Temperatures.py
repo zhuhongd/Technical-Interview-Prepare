@@ -1,5 +1,5 @@
 """
-Problem: Daily Temperatures
+Problem: Daily Temperatures (week 06)
 
 Given a list of daily temperatures, return a list where each element represents
 the number of days to wait until a warmer temperature.

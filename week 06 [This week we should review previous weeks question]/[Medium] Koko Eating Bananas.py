@@ -1,5 +1,5 @@
 """
-Problem: Koko Eating Bananas
+Problem: Koko Eating Bananas (week 05)
 
 You are given an array `piles` where `piles[i]` is the number of bananas in the i-th pile.
 You are also given an integer `h`, the number of hours you have to eat all the bananas.

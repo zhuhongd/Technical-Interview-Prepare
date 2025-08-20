@@ -1,5 +1,5 @@
 """
-Problem: Minimum Stack
+Problem: Minimum Stack (week 02)
 
 Design a stack that supports:
 - push(int val)
@@ -33,30 +33,22 @@ Use two stacks:
 
 class MinStack:
     def __init__(self):
-        # Main stack to store values
-        self.store = []
-        # Auxiliary stack to store current minimum at each level
-        self.minstack = []
+        self.something = "?"
 
     def push(self, val: int) -> None:
-        self.store.append(val)
-        # Determine new minimum: either the incoming value or the previous min
-        if self.minstack:
-            val = min(val, self.minstack[-1])
-        self.minstack.append(val)
+        return
 
     def pop(self) -> None:
         # Remove top element from both stacks
-        self.store.pop()
-        self.minstack.pop()
+        return
 
     def top(self) -> int:
         # Return the top of the main stack
-        return self.store[-1]
+        return  
 
     def getMin(self) -> int:
         # Return the current minimum (top of minstack)
-        return self.minstack[-1]
+        return 
 
 
 

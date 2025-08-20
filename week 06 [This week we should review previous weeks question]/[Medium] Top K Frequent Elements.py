@@ -1,5 +1,5 @@
 """
-Top K Frequent Elements
+Top K Frequent Elements (week 01)
 
 Problem:
 ---------
@@ -35,72 +35,11 @@ Approach 1: Bucket Sort (Best for O(n) linear time)
 
 from typing import List
 
-class BucketSortSolution:
+class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # Frequency map
-        freq_map = {}
-        for num in nums:
-            freq_map[num] = freq_map.get(num, 0) + 1
+        # Your solution here
 
-        # Create buckets: index = frequency, value = list of numbers
-        # Length of nums + 1 since max frequency could be len(nums)
-        bucket = [[] for _ in range(len(nums) + 1)]
-        for num, freq in freq_map.items():
-            bucket[freq].append(num)
-
-        # Collect top k frequent elements from the end
-        result = []
-        for i in range(len(bucket) - 1, 0, -1):
-            for num in bucket[i]:
-                result.append(num)
-                if len(result) == k:
-                    return result
-
-"""
-Time Complexity: O(n) - build map + collect results from buckets
-Space Complexity: O(n) - frequency map + buckets
-
-Common mistake:
----------------
-Do NOT use `bucket = [[]] * len(nums)` as this will create multiple references to the same list object.
-Instead, use a list comprehension: `[[] for _ in range(len(nums))]`
-"""
-
-# -----------------------------------------------------------
-# Approach 2: Min-Heap (Useful when k << n)
-# -----------------------------------------------------------
-
-import heapq
-
-class HeapSolution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # Frequency map
-        freq_map = {}
-        for num in nums:
-            freq_map[num] = freq_map.get(num, 0) + 1
-
-        # Use a min-heap to keep top k frequent elements
-        min_heap = []
-        for num, freq in freq_map.items():
-            heapq.heappush(min_heap, (freq, num))
-            if len(min_heap) > k:
-                heapq.heappop(min_heap)
-
-        # Extract results from the heap
-        return [num for freq, num in min_heap]
-
-"""
-Time Complexity: O(n log k) - heap maintains k elements
-Space Complexity: O(n) - frequency map + heap
-
-Summary:
---------
-- Bucket Sort is ideal for O(n) time when n isn't massive and memory isn't tight
-- Min-Heap is efficient when k is small compared to n
-- Both are common patterns in top-K problems
-
-This structured explanation is part of the EECS4070 Directed Study project by Hongda Zhu.
-"""
+        return
 
 # -----------------------------------------------------------
 # Inline tests (order-insensitive; unique answer guaranteed)
@@ -111,8 +50,8 @@ def _normalize(ans: List[int]) -> tuple:
     return tuple(sorted(ans))
 
 def _run_tests() -> None:
-    bucket = BucketSortSolution().topKFrequent
-    heap   = HeapSolution().topKFrequent
+    bucket = Solution().topKFrequent
+    heap   = Solution().topKFrequent
 
     # Each case: (nums, k, expected_set, label)
     TEST_CASES = [

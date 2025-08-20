@@ -1,6 +1,6 @@
 """
 
-Problem: Longest Consecutive Sequence
+Problem: Longest Consecutive Sequence (week 01)
 -------
 Given an *unsorted* list of integers `nums`, return the length of the *longest*
 sequence of consecutive integers (numbers that increase by exactly +1 each step).
@@ -16,31 +16,6 @@ Constraints
 ----------
 - 0 <= len(nums) <= 1000
 - -1e9 <= nums[i] <= 1e9
-
-Core Idea (Beginner-Friendly)
------------------------------
-Think of the numbers as points on a number line. A "consecutive sequence" is a solid
-block like 2—3—4—5. We want the length of the longest block.
-
-We can do this in O(n) using a set:
-1) Put all numbers into a set S for O(1) average lookups.
-2) A number x is the *start* of a sequence if (x-1) is NOT in S.
-   (If x-1 exists, then x is in the *middle* of some sequence, so don't start here.)
-3) For each start x, walk forward (x, x+1, x+2, ...) while those numbers exist in S.
-   Track the length of this walk and record the best.
-
-Why this is O(n):
-- Each number is part of at most one forward walk (the walk that begins at its sequence start).
-- Membership checks in a set are O(1) on average.
-
-Mini Dry Run
-------------
-nums = [2, 20, 4, 10, 3, 4, 5]; S = {2,3,4,5,10,20}
-- 2 is a start (1 not in S): walk 2,3,4,5 -> length 4
-- 3,4,5 are not starts (2,3,4 are in S) -> skip
-- 10 is a start: walk 10 -> length 1
-- 20 is a start: walk 20 -> length 1
-Answer = max(4,1,1) = 4
 """
 
 from typing import List
@@ -51,53 +26,9 @@ from typing import List
 # ============================================================
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        """
-        Implementation details:
-        - Build a set S of all numbers for O(1) average membership checks.
-        - For each x in S, if x-1 not in S, then x is the *start* of a run.
-        - From x, count forward while (x+1), (x+2), ... are in S.
-        - Keep track of the maximum run length.
-        """
-        s = set(nums)     # removes duplicates, enables O(1) membership tests
-        best = 0          # best (maximum) run length seen so far
+        # solution here
 
-        for x in s:
-            # Only begin counting if this is the smallest element of its run.
-            if (x - 1) not in s:
-                length = 1
-                current = x
-                # Keep stepping forward as long as the next integer exists.
-                while (current + 1) in s:
-                    current += 1
-                    length += 1
-                best = max(best, length)
-
-        return best
-
-
-# ============================================================
-# (Optional) Alternative for Learning: Sorting approach (O(n log n))
-# Uncomment to experiment; tests below target the active `Solution`.
-# ============================================================
-# class SortedSolution:
-#     def longestConsecutive(self, nums: List[int]) -> int:
-#         """
-#         Easier to reason about but O(n log n) due to sorting:
-#           1) Deduplicate with set(), then sort.
-#           2) Scan once to count the length of each consecutive run.
-#         """
-#         if not nums:
-#             return 0
-#         uniq = sorted(set(nums))  # remove duplicates, then sort
-#         best = 1
-#         cur_len = 1
-#         for i in range(1, len(uniq)):
-#             if uniq[i] == uniq[i - 1] + 1:
-#                 cur_len += 1
-#             else:
-#                 best = max(best, cur_len)
-#                 cur_len = 1
-#         return max(best, cur_len)
+        return
 
 
 # -----------------------------
