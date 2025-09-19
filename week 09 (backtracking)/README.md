@@ -112,13 +112,15 @@ for length in range(3,n+1):
 
 ## 6. Practice Line-up & Why These Matter
 
-| # | Problem (LeetCode)                | Theme                    | Interview Takeaway                       |
-| - | --------------------------------- | ------------------------ | ---------------------------------------- |
-| 1 | Palindrome Partitioning (#131)    | Backtracking basics      | Classic partitioning pattern              |
-| 2 | Palindrome Partitioning II (#132) | Min cuts, DP             | Transforms enumeration into optimization  |
-| 3 | Restore IP Addresses (#93)        | Backtracking + pruning   | Shows cut-based search with constraints   |
-| 4 | Word Break II (#140)              | Memoized DFS             | Generalizes partitioning with dictionary  |
-| 5 | Subsets (#78)                     | Backtracking vs. bitmask | Same skeleton, but no palindrome check    |
+| # | Problem (LeetCode)                 | Theme / Pattern                  | Interview Takeaway                                   |
+| - | ---------------------------------- | -------------------------------- | ---------------------------------------------------- |
+| 1 | Path Sum (#112)                    | DFS on trees                     | Base-case discipline; “remaining sum” pruning        |
+| 2 | Path Sum II (#113)                 | Backtracking on trees            | Build path list, push/pop correctly, collect all     |
+| 3 | Subsets (#78)                      | Backtracking / power set         | Pick/skip template; compare with bitmask + cascading |
+| 4 | Combination Sum (#39)              | Unbounded backtracking           | Stay/skip index, sort + prune by remaining           |
+| 5 | Combination Sum II (#40)           | Backtracking w/ duplicates (≤1x) | Sort + **skip duplicates at same depth**             |
+| 6 | Word Search (#79)                  | Grid backtracking                | In-place mark/restore vs visited matrix; boundaries  |
+| 7 | Palindrome Partitioning (#131)     | String partition backtracking    | Cut-based DFS; optional O(1) palindrome DP table     |
 
 ---
 
@@ -126,25 +128,25 @@ for length in range(3,n+1):
 
 By the end of this chapter you will be able to:
 
-1. **Recognize** backtracking patterns in partitioning problems.  
-2. **Implement** palindrome partitioning using recursive DFS.  
-3. **Optimize** using DP tables or memoized DFS.  
-4. **Analyze** complexity of cut-based search problems.  
-5. **Apply** the same strategy to related problems (Word Break, Restore IP).  
+1. **Recognize** common backtracking templates (pick/skip, stay/advance index, path push/pop).  
+2. **Implement** tree, grid, and string backtracking problems confidently.  
+3. **Optimize** with pruning (remaining sum, bounds) and de-dup rules (sorted + skip).  
+4. **Compare** alternatives (in-place vs visited, bitmask vs DFS, DP table for palindromes).  
+5. **Explain** time/space trade-offs for each pattern.
 
 ---
 
 ## 8. Skip Test
 
-If you can solve **Palindrome Partitioning II** (LC 132) in ≤ 40 min, explaining how you reduce brute force with DP, you’re ready to move on.
+If you can solve **Palindrome Partitioning II** (LC 132) in ≤ 40 min—deriving the **min-cuts DP** and explaining why it beats brute force—you’re ready to move on.
 
 ---
 
 ## 9. Further Reading & Visualizers
 
-- [Tech Interview Handbook – Backtracking Patterns](https://www.techinterviewhandbook.org/grind75)  
-- [MIT 6.006 – Dynamic Programming](https://ocw.mit.edu)  
-- [Visualgo – String Algorithms](https://visualgo.net/en)  
+- Tech Interview Handbook — Backtracking Patterns  
+- MIT 6.006 — Dynamic Programming lectures  
+- VisuAlgo — String & Graph visualizers
 
 ---
 
