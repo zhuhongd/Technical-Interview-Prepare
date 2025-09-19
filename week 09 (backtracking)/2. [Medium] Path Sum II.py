@@ -1,69 +1,63 @@
 """
-Path Sum (LeetCode 112) — EECS4070 Teaching-First Version
+Path Sum II (LeetCode 113) — EECS4070 Teaching-First Version
 
 Problem
 -------
-Given the root of a binary tree and an integer targetSum, return True if there exists
-a *root-to-leaf* path such that the sum of node values on that path equals targetSum.
-A leaf is a node with no children.
+Given the root of a binary tree and an integer targetSum, return *all* root-to-leaf
+paths where each path’s sum equals targetSum. A leaf has no children.
 
 Link
 ----
-https://leetcode.com/problems/path-sum/
+https://leetcode.com/problems/path-sum-ii/
 
 Key Examples
 ------------
-Input : root = [5,4,8,11,None,13,4,7,2,None,None,None,1], targetSum = 22
-Output: True
-Reason: One root-to-leaf path 5 → 4 → 11 → 2 has sum 22.
+Input : root = [5,4,8,11,None,13,4,7,2,None,None,5,1], targetSum = 22
+Output: [[5,4,11,2], [5,8,4,5]]
 
 Input : root = [1,2,3], targetSum = 5
-Output: False
-Reason: Paths are 1→2 (sum=3) and 1→3 (sum=4), neither is 5.
+Output: []
 
 Input : root = [], targetSum = 0
-Output: False
-Reason: Empty tree has no root-to-leaf paths.
+Output: []
 
 Beginner Intuition
 ------------------
-We're asked for a path from the root down to a *leaf* whose values add up to targetSum.
-A simple way: walk down the tree and keep track of the remaining sum we still need.
-At each node with value v, the remaining target becomes (targetSum - v).
-If we ever reach a leaf and the remaining target equals the leaf’s value, we found a path.
+This is like Path Sum I but instead of answering Yes/No, we must *collect* every
+root-to-leaf path whose values add up to targetSum. The natural pattern is DFS
+with a temporary "current path" list:
+ - Walk down, append node value to the path, subtract from remaining target.
+ - When we hit a leaf and remaining == node.val, we record a *copy* of the path.
+ - Backtrack (pop) to try other branches.
 
 Approach Overview
 -----------------
-1) Recursive DFS (active):
-   - If node is None → no path.
-   - Subtract current node value from target.
-   - If node is a leaf: check remaining == 0.
-   - Else: recurse into left OR right.
+1) Recursive DFS with backtracking (active):
+   - Maintain 'path' list; push before exploring, pop when returning.
+   - When at a leaf and remaining == node.val, append path copy to answers.
 
-2) Iterative DFS with stack (alternative):
-   - Stack holds (node, running_sum_so_far).
-   - When reaching a leaf, check running_sum == target.
+2) Iterative DFS with explicit stack (alternative):
+   - Stack holds (node, running_sum, path_list_so_far).
+   - On leaves with sum match, append path copy.
 
-3) BFS with queue (alternative):
-   - Level-order traversal, carrying running sums; check at leaves.
+3) BFS (alternative):
+   - Queue of (node, running_sum, path_list_so_far). Record at matching leaves.
 
 Complexity
 ----------
-Let N = number of nodes (≤ 5000).
-Time : O(N)  (we may visit each node once)
-Space: O(H) recursion stack for DFS, where H is tree height (worst O(N)).
-       For BFS/iterative DFS, O(W) or O(H) respectively.
+Let N be nodes, H be height, and K be the total number of matching paths.
+Time : O(N + total_length_of_output)  ~ O(N + sum(len(path_i))) since we copy paths.
+Space: O(H) recursion stack + O(H) path; worst O(N) for skewed trees.
 
 Helpers
 -------
-- build_tree_level: construct from level-order list with None as missing nodes.
-- to_level_list    : serialize tree back to level-order (trim trailing Nones).
-- ASCII renderer   : pretty top-down visualization to aid understanding.
+- build_tree_level(values): build from level-order list with None gaps.
+- to_level_list(root)     : serialize back (trims trailing Nones).
+- render_tree_topdown     : ASCII visualization.
 
 Tests
 -----
-- Includes the three examples and several additional shapes.
-- Cross-check active and alternatives for agreement on the same inputs.
+- Includes prompt-style cases, negatives, edges, and multi-path checks.
 """
 
 from collections import deque
@@ -83,67 +77,75 @@ class TreeNode:
 
 
 # ============================================================
-# ✅ Active Solution: Recursive DFS (target-decrement pattern)
-#    Time: O(N) | Space: O(H)
+# ✅ Active Solution: Recursive DFS + Backtracking
+#    Time: O(N + output) | Space: O(H)
 # ============================================================
 class Solution:
-    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        """
-        Return True if there's a root-to-leaf path with sum == targetSum.
-        Strategy: subtract node.val as we go; at a leaf, check remaining == 0.
-        """
-        if root is None:
-            return False
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+        ans: List[List[int]] = []
+        path: List[int] = []
 
-        remaining = targetSum - root.val
+        def dfs(node: Optional[TreeNode], remaining: int) -> None:
+            if node is None:
+                return
+            path.append(node.val)
+            remaining -= node.val
 
-        # If leaf: success if remaining == 0
-        if root.left is None and root.right is None:
-            return remaining == 0
+            # Leaf: record a copy if match
+            if node.left is None and node.right is None:
+                if remaining == 0:
+                    ans.append(path.copy())
+            else:
+                dfs(node.left, remaining)
+                dfs(node.right, remaining)
 
-        # Otherwise, try either subtree
-        return (self.hasPathSum(root.left, remaining) or
-                self.hasPathSum(root.right, remaining))
+            path.pop()  # backtrack
+
+        dfs(root, targetSum)
+        return ans
 
 
 # ============================================================
 # Alternative 1: Iterative DFS with explicit stack
-#    Time: O(N) | Space: O(H)
+#    Time: O(N + output) | Space: O(H)
 # ============================================================
 class SolutionIterDFS:
-    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
         if root is None:
-            return False
-        stack: List[Tuple[TreeNode, int]] = [(root, root.val)]
+            return []
+        ans: List[List[int]] = []
+        stack: List[Tuple[TreeNode, int, List[int]]] = [(root, root.val, [root.val])]
         while stack:
-            node, acc = stack.pop()
+            node, acc, path = stack.pop()
             if node.left is None and node.right is None and acc == targetSum:
-                return True
+                ans.append(path)
+            # Push right then left to process left first (if desired)
             if node.right:
-                stack.append((node.right, acc + node.right.val))
+                stack.append((node.right, acc + node.right.val, path + [node.right.val]))
             if node.left:
-                stack.append((node.left, acc + node.left.val))
-        return False
+                stack.append((node.left, acc + node.left.val, path + [node.left.val]))
+        return ans
 
 
 # ============================================================
-# Alternative 2: BFS (level order) carrying running sums
-#    Time: O(N) | Space: O(W)
+# Alternative 2: BFS level-order with paths
+#    Time: O(N + output) | Space: O(W) where W is max width
 # ============================================================
 class SolutionBFS:
-    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
         if root is None:
-            return False
-        q: Deque[Tuple[TreeNode, int]] = deque([(root, root.val)])
+            return []
+        ans: List[List[int]] = []
+        q: Deque[Tuple[TreeNode, int, List[int]]] = deque([(root, root.val, [root.val])])
         while q:
-            node, acc = q.popleft()
+            node, acc, path = q.popleft()
             if node.left is None and node.right is None and acc == targetSum:
-                return True
+                ans.append(path)
             if node.left:
-                q.append((node.left, acc + node.left.val))
+                q.append((node.left, acc + node.left.val, path + [node.left.val]))
             if node.right:
-                q.append((node.right, acc + node.right.val))
-        return False
+                q.append((node.right, acc + node.right.val, path + [node.right.val]))
+        return ans
 
 
 # -----------------------------
@@ -205,7 +207,7 @@ def to_level_list(root: Optional[TreeNode]) -> List[Optional[int]]:
 
 
 # -----------------------------
-# Top-Down ASCII Tree Renderer (same style as your previous file)
+# Top-Down ASCII Tree Renderer (same style as your other files)
 # -----------------------------
 def _render_topdown_aux(node: Optional[TreeNode]) -> Tuple[List[str], int, int, int]:
     if node is None:
@@ -267,13 +269,14 @@ def visualize_tree(arr: List[Optional[int]], title: str) -> None:
 # Teaching Walkthrough (tiny)
 # -----------------------------
 def _walkthrough_example() -> None:
-    arr = [5, 4, 8, 11, None, 13, 4, 7, 2, None, None, None, 1]
+    # Example from prompt variant producing two paths:
+    arr = [5,4,8,11,None,13,4,7,2,None,None,5,1]
     target = 22
     root = build_tree_level(arr)
-    ans = Solution().hasPathSum(root, target)
-    print("Walkthrough Example:")
+    out = Solution().pathSum(root, target)
+    print("Walkthrough Example (expect two paths summing to 22):")
     print(render_tree_topdown(root))
-    print(f"target={target} -> {ans}")
+    print(f"target={target} -> {out}")
     print()
 
 
@@ -282,55 +285,64 @@ def _walkthrough_example() -> None:
 # -----------------------------
 def _run_tests() -> None:
     impls = [
-        ("RecDFS", Solution().hasPathSum),
-        ("ItDFS",  SolutionIterDFS().hasPathSum),
-        ("BFS",    SolutionBFS().hasPathSum),
+        ("RecDFS", Solution().pathSum),
+        ("ItDFS",  SolutionIterDFS().pathSum),
+        ("BFS",    SolutionBFS().pathSum),
     ]
 
-    TESTS: List[Tuple[List[Optional[int]], int, bool, str]] = [
-        # From prompt
-        ([5,4,8,11,None,13,4,7,2,None,None,None,1], 22, True,  "prompt-1"),
-        ([1,2,3],                                    5, False, "prompt-2"),
-        ([],                                         0, False, "prompt-3"),
+    def norm(paths: List[List[int]]) -> List[List[int]]:
+        # Normalize for unordered comparison
+        return sorted((list(p) for p in paths), key=lambda x: (len(x), x))
 
-        # Edges
-        ([7],                                        7, True,  "single-true"),
-        ([7],                                        0, False, "single-false"),
+    TESTS: List[Tuple[List[Optional[int]], int, List[List[int]], str]] = [
+        # Prompt-style
+        ([5,4,8,11,None,13,4,7,2,None,None,5,1], 22, [[5,4,11,2],[5,8,4,5]], "prompt-two-paths"),
+        ([1,2,3],                                 5, [],                              "prompt-none"),
+        ([],                                      0, [],                              "empty"),
 
-        # Negative values / mix
-        ([1, -2, -3, 1, 3, -2, None, -1],          -1, True,  "negatives-1"),
-        ([1, 2],                                    1, False, "no-leaf-eq-root"),
+        # Single node
+        ([7],                                     7, [[7]],                           "single-match"),
+        ([7],                                     0, [],                              "single-no"),
 
-        # Multiple leaves with only one match
-        ([5, 3, 8, 2, 4, None, 10],                 12, True,  "one-match"),
-        ([5, 3, 8, 2, 4, None, 10],                 11, False, "no-match"),
+        # Negatives / mix
+        ([1, -2, -3, 1, 3, -2, None, -1],       -1, [[1,-2,1,-1]],                  "negatives"),
+
+        # Multiple matches, different depths
+        ([5,4,8,11,None,13,4,7,2,None,None,5,1], 26, [[5,8,13]],                     "one-at-right"),
+        ([5,3,8,2,4,None,10],                    12, [[5,3,4]],                      "one-left"),
+        ([5,3,8,2,4,None,10],                    18, [[5,8,5]],                      "synth-extra"),  # modify tree below
     ]
+
+    # Adjust the synthetic case to actually enable a 5 under 8's left.
+    # Replace the None at index 5 with a 5 to create 8->5 leaf path: [5,3,8,2,4,5,10]
+    TESTS[-1] = ([5,3,8,2,4,5,10], 18, [[5,8,5]], "synth-extra")
 
     passed = 0
     total = 0
 
-    for i, (arr, target, expected, label) in enumerate(TESTS, 1):
+    for i, (arr, target, expected_paths, label) in enumerate(TESTS, 1):
         print(f"\n[{i:02d}][{label}] target={target} input={arr}")
-
-        # Visualize a few interesting shapes
-        if label in {"prompt-1", "negatives-1", "one-match"}:
+        if label in {"prompt-two-paths", "negatives"}:
             visualize_tree(arr, f"viz {label}")
 
         results = []
         for name, f in impls:
             root = build_tree_level(arr)
             got = f(root, target)
-            ok = (got == expected)
-            results.append((name, got, ok))
+            results.append((name, got))
 
-        # report per implementation
-        for name, got, ok in results:
+        # Compare normalized results
+        exp_n = norm(expected_paths)
+        all_ok = True
+        for name, got in results:
+            ok = (norm(got) == exp_n)
+            all_ok = all_ok and ok
             total += 1
             passed += ok
-            print(f"  {name:<6} -> got={str(got):<5} expected={str(expected):<5} | {'✅' if ok else '❌'}")
+            print(f"  {name:<6} -> got={norm(got)} expected={exp_n} | {'✅' if ok else '❌'}")
 
-        # agreement among implementations
-        agree = len({r[1] for r in results}) == 1
+        # Agreement among implementations
+        agree = len({tuple(map(tuple, norm(g))) for _, g in results}) == 1
         print(f"  impls-agree: {'✅' if agree else '❌'}")
 
     print(f"\nPassed {passed}/{total} checks.")
