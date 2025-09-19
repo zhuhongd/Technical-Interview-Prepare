@@ -63,7 +63,8 @@ def partition(s: str):
 
     dfs(0)
     return ans
-    ```
+```
+
 Time: O(n · 2^n) — explore all cuts, check palindromes.
 Space: O(n) recursion depth + output.
 
