@@ -96,18 +96,22 @@ def search(root, target):
 
 ---
 
-## 5.  Practice Line‑up & Why These Matter
+## 5. Practice Line-up & Why These Matter (✅ accurate to folder)
 
-| # | Problem (LeetCode)                       | Theme                       | Interview Takeaway                      |
-| - | ---------------------------------------- | --------------------------- | --------------------------------------- |
-| 1 | Same Tree (#100)                         | Parallel traversal          | Equality logic & base‑case discipline   |
-| 2 | Invert Binary Tree (#226)                | Recursion fundamentals      | "Hello world" of tree problems          |
-| 3 | Maximum Depth (#104)                     | Height calculation          | Base for balance/diameter questions     |
-| 4 | Symmetric Tree (#101)                    | Mirror recursion            | Intro to dual‑pointer thinking          |
-| 5 | Binary Tree Level‑Order Traversal (#102) | BFS queue                   | First exposure to breadth‑wise scanning |
-| 6 | Validate BST (#98)                       | Range propagation / inorder | Solidifies BST invariant reasoning      |
-| 7 | Serialize & Deserialize BT (#297)        | Design & codec              | End‑to‑end reasoning, string ↔ tree     |
-| 8 | Insert into BST (#701)                   | BST insertion               | Reinforces balanced vs. skewed analysis |
+| #  | Problem (LeetCode)                                | Theme                                | Interview Takeaway |
+|----|---------------------------------------------------|--------------------------------------|--------------------|
+| 1  | **Invert Binary Tree** (#226)                     | Structural recursion                 | Easiest “tree transform”; confidence with base cases. |
+| 2  | **Maximum Depth of Binary Tree** (#104)           | Postorder height                     | Core postorder skeleton used by many problems. |
+| 3  | **Diameter of Binary Tree** (#543)                | Postorder + combine L/R + global best| Track `best = max(best, left+right)` while returning height. |
+| 4  | **Balanced Binary Tree** (#110)                   | Postorder + early exit sentinel      | Return height or `-1` to short-circuit on first imbalance. |
+| 5  | **Same Tree** (#100)                              | Parallel DFS comparison               | Equality logic; strict base-case discipline. |
+| 6  | **Subtree of Another Tree** (#572)                | Structural matching                   | Root candidate + `sameTree`; serialization/hash as alt. |
+| 7  | **Binary Tree Level Order Traversal** (#102)      | BFS queue by levels                   | Level sizing pattern; foundation for many “view/level” tasks. |
+| 8  | **Kth Smallest Element in a BST** (#230)          | Inorder (iter/rec) + early stop       | Exploit sorted inorder; counter/generator or stack. |
+| 9  | **Lowest Common Ancestor in a BST** (#235)        | BST-guided search                     | Use ordering: go left/right by comparisons; O(h). |
+| 10 | **Count Good Nodes in Binary Tree** (#1448)       | DFS carry “max-so-far”                | Path-dependent state threading along recursion. |
+| 11 | **Binary Tree Right Side View** (#199)            | BFS last-in-level / DFS right-first   | Per-level selection; right-first DFS with depth tracking also works. |
+| 12 | **Valid Binary Search Tree** (#98)                | Range propagation / inorder check     | Enforce strict bounds (`min < val < max`); duplicates disallowed. |
 
 ---
 
