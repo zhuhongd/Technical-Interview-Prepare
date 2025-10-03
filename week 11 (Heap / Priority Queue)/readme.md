@@ -153,6 +153,8 @@ print(heapq.heappushpop(heap, 2))  # returns 1, heap = [2, 3, 5]
 print(heapq.heapreplace(heap, 4))  # pops 2, pushes 4 → returns 2, heap = [3, 4, 5]
 ```
 
+---
+
 ## 10. When to Use a Heap vs. Alternatives
 
 | Goal                          | Best Tool                                | Why                                                                 |
