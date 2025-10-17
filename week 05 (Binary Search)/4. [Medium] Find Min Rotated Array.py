@@ -65,3 +65,80 @@ End: l=3, r=3 → return nums[3] = 1
 This shows how the loop eliminates half of the array at each step.
 We never scan the entire array — this is why the solution runs in O(log n).
 """
+# ==========================================================
+# 🧪 Offline Tests — Find Minimum in Rotated Sorted Array
+# ==========================================================
+def _run_tests() -> None:
+    sol = Solution()
+
+    TESTS = [
+        # Given examples
+        ([3, 4, 5, 6, 1, 2], 1, "example_mid_rotation"),
+        ([4, 5, 0, 1, 2, 3], 0, "example_min_near_start"),
+        ([4, 5, 6, 7],       4, "example_no_rotation"),
+
+        # Single element
+        ([10], 10, "single_elem_positive"),
+        ([-5], -5, "single_elem_negative"),
+
+        # Two elements
+        ([2, 1], 1, "two_rotated"),
+        ([1, 2], 1, "two_sorted"),
+
+        # General rotations
+        ([5, 6, 7, 1, 2, 3, 4], 1, "rotated_break_in_middle"),
+        ([2, 3, 4, 5, 6, 7, 1], 1, "min_at_last"),
+        ([1, 2, 3, 4, 5, 6, 7], 1, "already_sorted"),
+
+        # Negatives and mixed
+        ([-2, -1, 0, 1, 2], -2, "sorted_with_negatives"),
+        ([0, 1, 2, -3, -2, -1], -3, "rotated_with_negatives"),
+        ([-1, -5, -4, -3, -2], -5, "rotated_all_negative"),
+
+        # Longer sequences
+        (list(range(1, 101)), 1, "long_sorted"),
+        (list(range(50, 101)) + list(range(1, 50)), 1, "long_rotated_half"),
+        (list(range(-50, 51)), -50, "long_sorted_negatives"),
+        (list(range(10, 51)) + list(range(-10, 10)), -10, "long_rotated_mixed"),
+    ]
+
+    passed = 0
+    for i, (nums, expected, label) in enumerate(TESTS, 1):
+        got = sol.findMin(nums)
+        ok = (got == expected)
+        passed += ok
+        print(f"[{i:02d}] {label:<32} -> got={got:<5} expect={expected:<5} {'✅' if ok else '❌'}")
+
+    print(f"\nPassed {passed}/{len(TESTS)} tests.")
+
+
+# ==========================================================
+# 🔬 Optional: Randomized Property Test
+#    Compare against Python's built-in min() on random rotated arrays.
+# ==========================================================
+def _stress_test_random(trials: int = 200) -> None:
+    import random
+
+    sol = Solution()
+    for t in range(1, trials + 1):
+        n = random.randint(1, 50)
+        # generate unique values, sort ascending
+        base = sorted(random.sample(range(-1000, 1001), n))
+        # rotate by k (including 0 rotation)
+        k = random.randint(0, n - 1)
+        nums = base[k:] + base[:k]
+
+        got = sol.findMin(nums)
+        expected = min(nums)
+
+        if got != expected:
+            print("❌ Mismatch at trial", t)
+            print("nums:", nums)
+            print("expected:", expected, "got:", got)
+            return
+    print(f"✅ Randomized property test passed ({trials}/{trials}).")
+
+
+if __name__ == "__main__":
+    _run_tests()
+    # _stress_test_random()  # uncomment to run randomized validation
