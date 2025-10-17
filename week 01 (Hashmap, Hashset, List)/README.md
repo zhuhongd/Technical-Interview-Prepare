@@ -88,6 +88,6 @@ https://leetcode.com/problems/top-k-frequent-elements/
 ---
 
 **Next up:**  
-Week 2 — Two-Pointers and Slicing Windows. You’ll see how to solve pair problems and range scans more efficiently, sometimes without any extra space.
+**Week 2 — Stack**, You’ll see how stacks help manage order and dependency in problems — great for parentheses, reversals, and “next greater” patterns.
 
 Happy hashing!

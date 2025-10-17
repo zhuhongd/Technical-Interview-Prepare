@@ -120,7 +120,5 @@ Solve Reverse Linked List II (LC 92) within 30 minutes. It tests deep pointer ma
 ---
 
 **Next up:**\
-Week 6 — Stack Essentials. 
-
-Happy pointer chasing!
+**Week 8 — Trees**, You’ll see how recursion helps you navigate and solve problems in hierarchical data structures.
 

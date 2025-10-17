@@ -117,7 +117,7 @@ Pass → proceed to **Week 4: Binary Search**.
 
 ---
 
-**Next up → Week 4: Binary Search**  
+**Next up → Week 5: Binary Search**  
 Then we’ll hit Stacks/Queues/Monotonic structures in Week 5.
 
 _Happy sliding!_ 🧠🚀

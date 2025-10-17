@@ -1,4 +1,4 @@
-# Week 6 — Stacks
+# Week 2 — Stacks
 
 > “When the solution depends on remembering what you've recently seen, reach for a stack.”  
 > — Essential LeetCode insight
@@ -73,7 +73,6 @@ using a **monotonic stack** approach in under **30 minutes**, you’re ready to 
 ---
 
 **Next up:**  
-**Week 7 — Trees**  
-You'll learn BFS, DFS
+**Week 3 — Two Pointers**, you’ll see how to solve pair problems and range scans more efficiently, sometimes without any extra space.
 
 **Happy stacking! 🥞**

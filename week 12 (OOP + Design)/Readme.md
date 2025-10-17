@@ -1,4 +1,4 @@
-# 🧩 Chapter 1: Introduction to Object-Oriented Programming (OOP)
+# 🧩 Chapter 12: Introduction to Object-Oriented Programming (OOP)
 
 ### 📘 Overview
 This chapter introduces **Object-Oriented Programming (OOP)** in Python through simple, readable exercises like  

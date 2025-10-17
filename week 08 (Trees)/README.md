@@ -142,4 +142,4 @@ If you can solve **Serialize & Deserialize Binary Tree** (LC 297) in ≤ 40�
 
 ---
 
-**Next:** Week 7 — Heaps & Priority Queues. We'll turn trees sideways to prioritize *highest* (or *lowest*) elements in O(log n) time.
+**Next: Week 9 — Backtracking** You’ll learn how to explore all possibilities step by step, using recursion to build, test, and undo paths until the right solution appears.

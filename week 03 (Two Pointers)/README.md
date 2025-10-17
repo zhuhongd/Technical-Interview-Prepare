@@ -1,4 +1,4 @@
-# Week 2 — Two Pointers & Sliding Window
+# Week 3 — Two Pointers & Sliding Window
 
 > “When brute force is too slow, try using two pointers.”  
 > — Every successful LeetCode solver
@@ -79,6 +79,6 @@ using the two-pointer approach in ≤ 20 minutes and pass the tests, you’re re
 ---
 
 **Next up:**  
-Week 3 — Sliding Window & Subarray Problems! You’ll learn how to optimize even more “subarray/substring” challenges, often with hash maps or counters.
+**Week 4 — Sliding Window & Subarray Problems!** You’ll learn how to optimize even more “subarray/substring” challenges, often with hash maps or counters.
 
 Happy problem solving!

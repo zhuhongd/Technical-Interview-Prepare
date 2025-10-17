@@ -150,4 +150,7 @@ If you can solve **Palindrome Partitioning II** (LC 132) in ≤ 40 min—derivin
 
 ---
 
-**Next:** Week 10 — Word Break & String DP. From palindromes to dictionaries, we generalize partitioning with constraints.
+**Next:** 
+**Week 10 — Graphs**  
+You’ll learn how to **traverse and explore connected data** using BFS and DFS — the foundation for understanding networks, paths, and relationships between nodes.
+

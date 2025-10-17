@@ -119,5 +119,5 @@ Pass → move to **Week 5**.
 
 ### ➡️ Next Up
 
-**Week 5 — Linked Lists.**
+**Week 7 — Linked Lists.** You’ll learn how to traverse, reverse, and merge linked lists — mastering pointer movement and structural manipulation.
 
