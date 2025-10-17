@@ -25,12 +25,12 @@ It doubles as my **EECS4070 directed studies project**, where I measure how a st
 
  ## 🗂 Repo Structure
  ```
- ├── week1 (Hashmap, Hashset, Heap, List)
- ├── week2 (Two Pointers)
- ├── week3 (Sliding Window)
- ├── week4 (Binary Search)
- ├── week5 (Linked List)
- ├── week6 (Stack / Monotonic Structures)
+ ├── week1 (Hashmap, Hashset, List)
+ ├── week2 (Stack / Monotonic Structures)
+ ├── week3 (Two Pointers)
+ ├── week4 (Sliding Window)
+ ├── week5 (Binary Search)
+ ├── week6 (Linked List)
  ├── week7 (Trees & BST fundamentals)
  │   └── ... (additional contents in week7)
  ├── things_you_need_to_know.ipynb   # Core “must know” templates/notes
@@ -84,7 +84,7 @@ It doubles as my **EECS4070 directed studies project**, where I measure how a st
 
 ## 🔧 Future Improvements / TODO
 
-- Add unit tests for helper templates  
+- Add unit tests for helper templates 
 - Visual diagrams for tree ops / sliding windows  
 
 ---
