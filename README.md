@@ -8,16 +8,12 @@
 ## 🚀 What is this?
 
 This repo is a **12‑week, pattern-first roadmap** for technical interview prep (LeetCode-style DSA + light design/OOP).  
-It doubles as my **EECS4070 directed studies project**, where I measure how a structured pattern curriculum affects:
-- Problem-solving speed
-- Confidence
-- Ability to transfer patterns to new problems
 
 ---
 
 ## 🎯 Project Goals
 
-1. **Learn by patterns, not problems**: Hashes → Two Pointers → Sliding Window → Binary Search → Stacks/Queues → Trees/BSTs → …  
+1. **Learn by patterns, not problems**: Hashes → Stacks/Queues → Two Pointers → Sliding Window → Binary Search → rees/BSTs → …  
 2. **Document everything** clearly (code, complexity, common mistakes).  
 3. **Collect data** (time, attempts, reflections) to analyze learning impact.
 
@@ -106,3 +102,23 @@ It doubles as my **EECS4070 directed studies project**, where I measure how a st
 
 > _“Patterns first, problems second.”_  
 > Happy grinding! 💪
+
+
+---
+
+## 🧾 License
+
+This project is licensed under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)**.
+
+[![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+You are free to:
+- **Share** — copy and redistribute the material in any medium or format  
+- **Adapt** — remix, transform, and build upon the material  
+
+Under the following terms:
+- **Attribution (BY):** You must give appropriate credit to the creator (Hongda Zhu).  
+- **NonCommercial (NC):** You may not use the material for commercial purposes.  
+- **ShareAlike (SA):** If you remix, transform, or build upon the material, you must distribute your contributions under the same license.
+
+See the full license here: [Creative Commons BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
