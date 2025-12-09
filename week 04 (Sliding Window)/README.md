@@ -1,4 +1,4 @@
-# Week 3 — Sliding Window (Fixed & Variable Size)
+# Week 4 — Sliding Window (Fixed & Variable Size)
 
 > “Don’t scan; slide.”  
 > — Every efficient LeetCode solver
