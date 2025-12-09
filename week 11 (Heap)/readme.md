@@ -1,4 +1,4 @@
-# Week 7 — Heaps & Priority Queues (`heapq`)
+# Week 11 — Heaps & Priority Queues (`heapq`)
 
 > “A heap is a *half-sorted* structure: the root is always best, and fixing it is `O(log n)`.”
 
