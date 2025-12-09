@@ -1,4 +1,4 @@
-# Week 4 — Binary Search
+# Week 5 — Binary Search
 
 > “If your array is sorted or can be logically sorted, think binary search first.”  
 > — Every efficient LeetCode solver
