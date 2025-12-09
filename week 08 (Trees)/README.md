@@ -1,4 +1,4 @@
-# Week 3 — Binary Trees, Traversals & BSTs
+# Week 8 — Binary Trees, Traversals & BSTs
 
 > “Recursion is like climbing a tree—the scenery repeats at every branch.”
 
