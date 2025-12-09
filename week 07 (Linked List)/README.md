@@ -1,4 +1,4 @@
-# Week 5 — Linked Lists
+# Week 7 — Linked Lists
 
 > “Pointers are powerful—but dangerous. Handle them carefully.”\
 > — Interview wisdom
