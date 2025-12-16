@@ -1,4 +1,4 @@
-# Technical-Interview-Prepare (EECS4070 Directed Study)
+# Technical-Interview-Prepare
 
 > **Pattern-based interview prep + mini research project**  
 > Summer/Fall 2025 · York University
